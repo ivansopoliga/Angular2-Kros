@@ -22,13 +22,8 @@ export class UserService {
 
        return this.http.post('http://localhost:50909/api/authentification/login', JSON.stringify({
             Email, Password
-        }), { headers })
-            .subscribe(
-              response => {response.json();
-              alert(response);
-              },
-              error => console.log(error)
-            );
+        }), { headers });
+
 
 
 

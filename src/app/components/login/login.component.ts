@@ -34,7 +34,16 @@ export class LoginComponent {
      */
 
 
-    this.userService.login(this.email, this.password);
+    this.userService.login(this.email, this.password).subscribe(
+      response => {
+        // localStorage.setItem('id_token', response.json().id_token);
+        this.router.navigate(['/home']);
+      },
+      error => {
+        this.error = 'Nesprávny email/heslo';
+        console.log(error.text());
+      }
+    );
     /*
       .subscribe(
         data => {
