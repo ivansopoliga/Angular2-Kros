@@ -1,6 +1,7 @@
 ﻿import {Injectable} from '@angular/core';
 import {Http, Headers, Response, Jsonp} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map'
 
 
 
@@ -19,16 +20,19 @@ export class UserService {
         headers.append('Content-Type', 'application/json');
       //  alert('Prihlasujem sa...');
 
-       return this.http.post('api/authentification/login', JSON.stringify({
+       return this.http.post('http://localhost:50909/api/authentification/login', JSON.stringify({
             Email, Password
         }), { headers })
-            .map(res => res.json())
-            .map((res) => {
-               
-            });
+            .subscribe(
+              response => {response.json();
+              alert(response);
+              },
+              error => console.log(error)
+            );
 
 
-      
+
+
 
          /*   .map(res => res.json())
             .subscribe(
@@ -49,7 +53,7 @@ export class UserService {
     }
 
 
-    logout() {  
+    logout() {
         alert('Odhlasujem sa...');
         return this.http.get('api/authentication/logout', {
           headers: new Headers({
@@ -60,12 +64,12 @@ export class UserService {
           this.token = undefined;
           localStorage.removeItem('token');
         });
-     
+
     }
 
     public isLoggedin() {
         return this.token;
 }
-    
+
 
 }

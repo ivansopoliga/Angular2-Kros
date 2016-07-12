@@ -3,10 +3,11 @@ import { enableProdMode } from '@angular/core';
 import { environment } from './app';
 import { AppComponent } from './app/components/app.component';
 import {APP_ROUTER_PROVIDERS} from './app/components/app.routes';
+import {HTTP_PROVIDERS} from '@angular/http';
 
 if (environment.production) {
   enableProdMode();
 }
 
-bootstrap(AppComponent, APP_ROUTER_PROVIDERS);
+bootstrap(AppComponent, [APP_ROUTER_PROVIDERS, HTTP_PROVIDERS]);
 
