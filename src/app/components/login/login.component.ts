@@ -17,43 +17,27 @@ export class LoginComponent {
   private password: string;
   private error: string;
   private year = '2016';
+  response:any;
 
   constructor(private router: Router, private userService: UserService) {
   }
 
 
   onSubmit() {
-    /*
-     this.userService.login(this.email, this.password).subscribe((error) => {
-     if (error) {
-     this.router.navigate(['/home']);
-     } else {
-     this.error = 'Nesprávne email/heslo';
-     }
-     });
-     */
-
-
     this.userService.login(this.email, this.password).subscribe(
       response => {
-        // localStorage.setItem('id_token', response.json().id_token);
+        this.response = response;
+        console.log(response);
+        localStorage.setItem('login', 'ok');
         this.router.navigate(['/home']);
       },
       error => {
         this.error = 'Nesprávny email/heslo';
+        this.response=error;
         console.log(error.text());
       }
     );
-    /*
-      .subscribe(
-        data => {
-          alert(JSON.stringify(data));
-          this.router.navigate(['/home']);
 
-        }, // Reach here if res.status >= 200 && <= 299
-        (err) => this.error = 'Nesprávny email/heslo');
-
-*/
   }
 
 }
