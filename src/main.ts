@@ -5,6 +5,8 @@ import { AppComponent } from './app/components/app.component';
 import {APP_ROUTER_PROVIDERS} from './app/components/app.routes';
 import {HTTP_PROVIDERS} from '@angular/http';
 
+
+
 if (environment.production) {
   enableProdMode();
 }

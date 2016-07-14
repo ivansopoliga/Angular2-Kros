@@ -1,10 +1,8 @@
 ﻿import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {UserService} from '../../services/user.service';
-//import { Cookie } from 'ng2-cookies/ng2-cookies';
-import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
-
+import { Cookie } from '../../services/ng2-cookies/ng2-cookies';
 
 @Component({
     selector: 'login',
@@ -29,7 +27,8 @@ export class LoginComponent {
         this.response = response;
         console.log(response);
         localStorage.setItem('login', 'ok');
-        this.router.navigate(['/home']);
+
+      //  this.router.navigate(['/home']);
       },
       error => {
         this.error = 'Nesprávny email/heslo';
@@ -38,6 +37,13 @@ export class LoginComponent {
       }
     );
 
+
+  }
+
+  showCookie(){
+   // document.cookie = 'Ahoj';
+    alert(document.cookie.toString());
+    console.log('Moja cookie: '+ JSON.stringify(Cookie.getAll()));
   }
 
 }
