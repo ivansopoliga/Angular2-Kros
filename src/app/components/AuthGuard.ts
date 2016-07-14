@@ -10,19 +10,11 @@ import {Injectable} from "@angular/core";
 export class AuthGuard implements CanActivate {
   constructor(public authService: UserService, public router: Router){}
   canActivate() {
-    console.log(Cookie.get('KrosbookAuthentification'));
-
-    let myCookie = Cookie.get('cookieName');
-    myCookie
-
-    if (Cookie.get('KrosbookAuthentification')!=''){
+    if (this.authService.isLoggedIn()){
       return true; }
-    this.router.navigate(['/login']);
-    return false;
-
-    //console.log(Cookie.get('KrosbookAuthentification'));
-    //this.router.navigate(['/login']);
-    //return false;
-
+      else {
+      this.router.navigate(['/login']);
+      return false;
+    }
   }
 }

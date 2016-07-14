@@ -27,16 +27,14 @@ export class UserService {
       Cookie.delete('KrosbookAuthentification');
     }
 
-/*
+
     public  isLoggedIn(){
-      if(Cookie.get('KrosbookAuthentification').toString()!=''){
-        alert('Mam cookie');
+      if(Cookie.get('KrosbookAuthentification')!=null){
         return true;
       }
       else {
-        alert('Nemam cookie');
         return false;}
     }
-*/
+
 
 }
