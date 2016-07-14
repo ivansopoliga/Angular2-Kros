@@ -1,7 +1,7 @@
 ﻿import {Component} from '@angular/core';
 import {UserService} from '../../services/user.service';
-import {isLoggedin}  from '../../services/isloggedin';
 import {Router, CanActivate} from '@angular/router';
+import { Cookie } from '../../services/ng2-cookies/ng2-cookies';
 
 @Component({
     selector: 'home',
@@ -12,9 +12,9 @@ import {Router, CanActivate} from '@angular/router';
 
 
 export class HomeComponent {
-  constructor(public auth: UserService, public router: Router) {}
 
-  onLogout() {
-    
-  }
+  constructor(public authService: UserService, public router: Router) {}
+
+
+
 }

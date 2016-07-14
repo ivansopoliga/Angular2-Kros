@@ -20,15 +20,15 @@ export class LoginComponent {
   constructor(private router: Router, private userService: UserService) {
   }
 
-
   onSubmit() {
-    this.userService.login(this.email, this.password).subscribe(
+    this.userService.login(this.email, this.password)
+      .subscribe(
       response => {
         this.response = response;
-        console.log(response);
-        localStorage.setItem('login', 'ok');
-
-      //  this.router.navigate(['/home']);
+        this.router.navigate(['/home']);
+        if(this.response._body==''){
+          Cookie.set('KrosbookAuthentification','OK');
+        }
       },
       error => {
         this.error = 'Nesprávny email/heslo';
@@ -36,14 +36,8 @@ export class LoginComponent {
         console.log(error.text());
       }
     );
-
-
   }
 
-  showCookie(){
-   // document.cookie = 'Ahoj';
-    alert(document.cookie.toString());
-    console.log('Moja cookie: '+ JSON.stringify(Cookie.getAll()));
-  }
+
 
 }

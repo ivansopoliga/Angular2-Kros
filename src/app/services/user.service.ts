@@ -2,6 +2,7 @@
 import {Http, Headers, Response, Jsonp} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
+import { Cookie } from './ng2-cookies/ng2-cookies';
 
 
 
@@ -16,16 +17,26 @@ export class UserService {
     }
 
     public login(Email: string, Password: string) {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
        return this.http.post('http://localhost:50909/api/authentification/login', JSON.stringify({
             Email, Password
-        }), { headers });
+        }), { headers  } );   }
+
+    public logout() {
+      Cookie.delete('KrosbookAuthentification');
     }
 
-
-    logout() {
-      localStorage.removeItem('token');
+/*
+    public  isLoggedIn(){
+      if(Cookie.get('KrosbookAuthentification').toString()!=''){
+        alert('Mam cookie');
+        return true;
+      }
+      else {
+        alert('Nemam cookie');
+        return false;}
     }
+*/
 
 }
