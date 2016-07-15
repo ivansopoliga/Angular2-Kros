@@ -1,17 +1,13 @@
 ﻿import {Injectable} from '@angular/core';
-import {Http, Headers, Response, Jsonp} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
+import {Http, Headers} from '@angular/http';
 import 'rxjs/add/operator/map'
 import { Cookie } from './ng2-cookies/ng2-cookies';
-
-
-
+import {Observable} from "rxjs/Rx";
 
 
 @Injectable()
 export class UserService {
-    private token: string;
-
+    hasRoleAdmin: boolean = false;
 
     constructor(private http: Http) {
     }
@@ -21,10 +17,14 @@ export class UserService {
       headers.append('Content-Type', 'application/json');
        return this.http.post('http://localhost:50909/api/authentification/login', JSON.stringify({
             Email, Password
-        }), { headers  } );   }
+        }), { headers  } );
+    }
 
     public logout() {
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
       Cookie.delete('KrosbookAuthentification');
+      return this.http.get('http://localhost:50909/api/authentification/logout', { headers  } );
     }
 
 
@@ -35,6 +35,12 @@ export class UserService {
       else {
         return false;}
     }
+
+  public getUsers() {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get('http://localhost:50909/api/users', { headers  } );
+  }
 
 
 }

@@ -51,7 +51,7 @@ System.config({
     '@angular': 'vendor/@angular',
     'rxjs': 'vendor/rxjs',
     'main': 'main.js',
-    "ng2-cookies": 'node_modules/ng2-cookies'
+    moment: 'node_modules/moment/moment.js'
   },
   packages: cliSystemConfigPackages
 });

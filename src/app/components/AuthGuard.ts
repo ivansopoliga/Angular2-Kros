@@ -3,7 +3,6 @@
  */
 import {UserService} from '../services/user.service';
 import {Router, CanActivate} from '@angular/router';
-import { Cookie } from '../services/ng2-cookies/ng2-cookies';
 import {Injectable} from "@angular/core";
 
 @Injectable()

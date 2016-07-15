@@ -2,16 +2,16 @@
 import {LoginComponent} from './login/login.component';
 import {HomeComponent} from './home/home.component';
 import {AdminComponent} from './admin/admin.component';
-import { loginRoutes, authProviders }      from './login.routes';
+import {authProviders }      from './login.routes';
 import {AuthGuard} from "./AuthGuard";
+import {AdminGuard} from "./AdminGuard";
 
 
 const routes: RouterConfig = [
   { path: '', redirectTo: 'home', terminal: true },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
- // loginRoutes,
   { path: 'login', component: LoginComponent },
-  { path: 'admin', component: AdminComponent }
+  { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] }
 ];
 
 
