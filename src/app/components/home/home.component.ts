@@ -9,13 +9,23 @@ import {Cookie} from '../../services/ng2-cookies/ng2-cookies';
   styleUrls: ['app/components/home/home.component.css']
 })
 
-
 export class HomeComponent {
   response:any;
+  dataset: any;
   constructor(public authService:UserService, public router:Router) {
   }
 
+
+
   GetUsers() {
+    this.authService.getUsers()
+      .subscribe(
+        data => {this.dataset = JSON.stringify(data);
+                alert(this.dataset);},
+        error => console.error(error)
+      );}
+
+  GetUsersStare() {
   this.authService.getUsers().subscribe(response => {
       this.response = response;
       if(this.response._body==null){
