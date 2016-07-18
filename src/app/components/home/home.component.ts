@@ -1,7 +1,9 @@
-﻿import {Component} from '@angular/core';
+﻿import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user.service';
 import {Router, CanActivate} from '@angular/router';
 import {Cookie} from '../../services/ng2-cookies/ng2-cookies';
+import {Person} from "./person";
+import {Response} from "@angular/http";
 
 @Component({
   selector: 'home',
@@ -9,19 +11,33 @@ import {Cookie} from '../../services/ng2-cookies/ng2-cookies';
   styleUrls: ['app/components/home/home.component.css']
 })
 
-export class HomeComponent {
+export class HomeComponent implements OnInit{
   response:any;
-  dataset: any;
+  users: any;
+  public foods;
+
+  result:Array<Object>;
+
   constructor(public authService:UserService, public router:Router) {
+    this.GetUsers;
   }
+  generateArray(obj){
+    return Object.keys(obj).map((key)=>{ return obj[key]});
+  }
+
+  ngOnInit(){
+    this.GetUsers();
+  }
+
+
 
 
 
   GetUsers() {
     this.authService.getUsers()
+      .map((res:Response) => res.json())
       .subscribe(
-        data => {this.dataset = JSON.stringify(data);
-                alert(this.dataset);},
+        data => {this.foods = data},
         error => console.error(error)
       );}
 
