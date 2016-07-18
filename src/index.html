@@ -16,6 +16,7 @@
   <!-- 1. Load libraries -->
   <!-- Polyfill(s) for older browsers -->
   <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css">
+  <script src="lib/jquery/jquery.js" type="text/javascript"></script>
   <link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="lib/css/loading.css" />
 
@@ -33,9 +34,6 @@
   {{#unless environment.production}}
   <script src="/ember-cli-live-reload.js" type="text/javascript"></script>
   {{/unless}}
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css">
 
 
 </head>
@@ -44,7 +42,7 @@
     <div id="loading_view" class="col-md-12 col-xs-12">
       <div id="loading_center" class="col-lg-3 col-md-3 col-sm-4 col-xs-12 text-center">
         <img src="../images/logo_big.png" alt="logo" id="logo" class="col-md-8 col-xs-6 col-md-offset-2 col-xs-offset-3" />
-        <h2>Načítava sa...</h2>
+        <h2 class="col-xs-12">Načítava sa...</h2>
       </div>
     </div>
   </app-root>

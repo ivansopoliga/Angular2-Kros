@@ -1,12 +1,12 @@
 ﻿<div id="mainApp">
     <div id="header">
-        <div class="col-md-2 text-center">
+        <div class="col-md-2 col-xs-12 text-center">
             <img src="../images/logo_small.png" alt="logo_small" />
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 col-sm-6 col-xs-12 col-sm-center">
             <input type="text" name="search" placeholder="Search.." class="form-control" id="searchInput" />
         </div>
-        <div class="col-md-2 text-center">
+        <div class="col-md-2 col-sm-6 col-xs-12 text-center">
             <p class="glyphicon glyphicon-envelope col-md-6" aria-hidden="true" id="envelope_ico">
                 <span class="badge">5</span>
             </p>
@@ -16,27 +16,35 @@
 
     <!-- MENU - lava strana -->
     <div class="row row-eq-height col-md-12" id="contentWindow">
-        <div class="col-md-2 " id="left_menu" style="height: {{ windowHeight }}">
-            <a href="#" class="col-md-10 col-md-offset-2">
-                <img src="../images/icon_news.png" class="menu_icon">News
+        <div class="col-md-2 col-xs-center" id="left_menu">
+            <a href="#" class="col-md-10 col-md-offset-2 col-sm-11 col-sm-offset-1 col-xs-9 col-xs-offset-3">
+                <img src="../images/icon_news.png" class="menu_icon">
+                <span>News</span>
             </a>
-            <a href="#" class="col-md-10 col-md-offset-2">
-                <img src="../images/icon_kalendar.png " class="menu_icon">Kalendár
+            <a href="#" class="col-md-10 col-md-offset-2 col-sm-11 col-sm-offset-1 col-xs-9 col-xs-offset-3">
+                <img src="../images/icon_kalendar.png " class="menu_icon">
+                <span>Kalendár</span>
             </a>
-            <a href="#" class="col-md-10 col-md-offset-2">
-                <img src="../images/icon_reservation.png" class="menu_icon">Rezervácie
+            <a href="#" class="col-md-10 col-md-offset-2 col-sm-11 col-sm-offset-1 col-xs-9 col-xs-offset-3">
+                <img src="../images/icon_reservation.png" class="menu_icon">
+                <span>Rezervácie</span>
             </a>
-            <a href="#" class="col-md-10 col-md-offset-2">
-                <img src="../images/icon_zabava.png" class="menu_icon">Zábava
+            <a href="#" class="col-md-10 col-md-offset-2 col-sm-11 col-sm-offset-1 col-xs-9 col-xs-offset-3">
+                <img src="../images/icon_zabava.png" class="menu_icon">
+                <span>Zábava</span>
             </a>
-            <a href="#" class="col-md-10 col-md-offset-2">
-                <img src="../images/icon_kros.png" class="menu_icon">KROS
+            <a href="#" class="col-md-10 col-md-offset-2 col-sm-11 col-sm-offset-1 col-xs-9 col-xs-offset-3">
+                <img src="../images/icon_kros.png" class="menu_icon">
+                <span>KROS</span>
+            </a>
+            <a [routerLink]="['/admin']" class="col-md-10 col-md-offset-2 col-sm-11 col-sm-offset-1 col-xs-9 col-xs-offset-3">
+              <img src="../images/icon_kros.png" class="menu_icon">
+              <span>Administrácia</span>
             </a>
         </div>
 
         <!-- OBSAH -->
         <div class="col-md-8" id="content">
-            <p>{{ windowHeight }}</p>
 
           <button type="submit" class="ui button" (click)="GetUsers()">GetUsers</button>
 
