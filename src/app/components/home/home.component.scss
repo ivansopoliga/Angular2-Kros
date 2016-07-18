@@ -56,6 +56,9 @@ div {
     line-height: $menuHeight;
     height: $menuHeight;
   }
+  img {
+    vertical-align: initial;
+  }
 }
 
 #searchInput {

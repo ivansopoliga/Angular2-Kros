@@ -10,28 +10,15 @@
 
         </div>
     </div>
-    <div id="leftMenu" class="col-md-2 text-center">
-        <a [routerLink]="['/admin/offices']" class="col-md-12">Miestnosti</a>
-        <a [routerLink]="['/admin/cars']" class="col-md-12">Autá</a>
-        <a [routerLink]="['/admin/users']" class="col-md-12">Používatelia</a>
-        <a [routerLink]="['/home']" class="col-md-12 homeButton"><< Späť na hlavnú stránku</a>
-    </div>
-    <div id="content" class="col-md-8">
+    <div class="row row-eq-height col-md-12" id="contentWindow">
+      <div id="leftMenu" class="col-md-2 text-center">
+          <a [routerLink]="['/admin/offices']" class="col-md-12">Miestnosti</a>
+          <a [routerLink]="['/admin/cars']" class="col-md-12">Autá</a>
+          <a [routerLink]="['/admin/users']" class="col-md-12">Používatelia</a>
+          <a [routerLink]="['/home']" class="col-md-12 homeButton"><< Späť na hlavnú stránku</a>
+      </div>
+      <div id="content" class="col-md-8">
         <router-outlet></router-outlet>
-      <h2>Používatelia</h2>
-      <table class="table">
-        <tr *ngFor="let user of users">
-          <td><img alt="Embedded Image" src="data:image/png;base64,{{user.photoBase64}}" width="50" height="50"></td>
-          <td>{{user.name}}</td>
-          <td>{{user.surname}}</td>
-          <td>{{user.email}}</td>
-          <td><!-- Single button -->
-            <div class="btn-group" role="group" aria-label="...">
-              <button type="button" class="btn btn-warning glyphicon glyphicon-edit"></button>
-              <button type="button" class="btn btn-danger glyphicon glyphicon-trash"></button>
-            </div>
-          </td>
-        </tr>
-      </table>
+      </div>
     </div>
 </div>

@@ -10,22 +10,6 @@ import {Response} from "@angular/http";
     directives: [ROUTER_DIRECTIVES]
 })
 
-export class AdminComponent implements OnInit{
-  public users;
-  constructor(private router:Router, private userService:UserService){
-    this.GetUsers;
-  }
-
-  ngOnInit(){
-    this.GetUsers();
-  }
-
-  GetUsers() {
-    this.userService.getUsers()
-      .map((res:Response) => res.json())
-      .subscribe(
-        data => {this.users = data},
-        error => console.error(error)
-      );}
+export class AdminComponent{
 
 }

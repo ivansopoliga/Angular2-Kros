@@ -1,3 +1,7 @@
+div {
+  padding-left: 0 !important;
+  padding-right: 0 !important; }
+
 .row {
   display: table;
   margin-left: 0;
@@ -8,10 +12,6 @@
   display: table-cell;
   vertical-align: top; }
 
-div {
-  padding-left: 0 !important;
-  padding-right: 0 !important; }
-
 #upperBar {
   background: url(../../images/bcg_header.png) no-repeat;
   background-size: 100% 100%;
@@ -19,21 +19,20 @@ div {
   width: 100%;
   margin: 0;
   padding: 0; }
-
-#upperBar h2 {
-  line-height: 78px;
-  margin: 0 0 0 20px; }
+  #upperBar h2 {
+    line-height: 78px;
+    margin: 0 0 0 20px;
+    color: white; }
 
 #leftMenu {
   background-color: #f2f2f2;
   border-right: 1px solid #b3b3b3;
   min-height: 100%;
   padding: 20px; }
-
-#leftMenu > a {
-  color: #4d4d4d;
-  font-size: 1.2em;
-  margin-bottom: 10px; }
+  #leftMenu a {
+    color: #4d4d4d;
+    font-size: 1.2em;
+    margin-bottom: 10px; }
 
 .homeButton {
   margin-top: 20px;
