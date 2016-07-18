@@ -2,7 +2,7 @@
 import {UserService} from '../../services/user.service';
 import {Router, ROUTER_DIRECTIVES, CanActivate} from '@angular/router';
 import {Cookie} from '../../services/ng2-cookies/ng2-cookies';
-import {Person} from "./person";
+
 import {Response} from "@angular/http";
 
 @Component({
@@ -20,27 +20,20 @@ export class HomeComponent implements OnInit{
   result:Array<Object>;
 
   constructor(public authService:UserService, public router:Router) {
-    this.GetUsers;
+
   }
   generateArray(obj){
     return Object.keys(obj).map((key)=>{ return obj[key]});
   }
 
   ngOnInit(){
-    this.GetUsers();
+
   }
 
 
 
 
 
-  GetUsers() {
-    this.authService.getUsers()
-      .map((res:Response) => res.json())
-      .subscribe(
-        data => {this.foods = data},
-        error => console.error(error)
-      );}
 
   GetUsersStare() {
   this.authService.getUsers().subscribe(response => {

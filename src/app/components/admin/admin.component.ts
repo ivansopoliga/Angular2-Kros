@@ -1,5 +1,7 @@
-﻿import {Component} from  '@angular/core'
-import {ROUTER_DIRECTIVES} from '@angular/router';
+﻿import {Component, OnInit} from  '@angular/core';
+import {ROUTER_DIRECTIVES, Router} from '@angular/router';
+import {UserService} from '../../services/user.service';
+import {Response} from "@angular/http";
 
 @Component({
     selector: 'admin',
@@ -8,5 +10,22 @@ import {ROUTER_DIRECTIVES} from '@angular/router';
     directives: [ROUTER_DIRECTIVES]
 })
 
-export class AdminComponent {
+export class AdminComponent implements OnInit{
+  public users;
+  constructor(private router:Router, private userService:UserService){
+    this.GetUsers;
+  }
+
+  ngOnInit(){
+    this.GetUsers();
+  }
+
+  GetUsers() {
+    this.userService.getUsers()
+      .map((res:Response) => res.json())
+      .subscribe(
+        data => {this.users = data},
+        error => console.error(error)
+      );}
+
 }

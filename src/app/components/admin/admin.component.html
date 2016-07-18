@@ -18,5 +18,20 @@
     </div>
     <div id="content" class="col-md-8">
         <router-outlet></router-outlet>
+      <h2>Používatelia</h2>
+      <table class="table">
+        <tr *ngFor="let user of users">
+          <td><img alt="Embedded Image" src="data:image/png;base64,{{user.photoBase64}}" width="50" height="50"></td>
+          <td>{{user.name}}</td>
+          <td>{{user.surname}}</td>
+          <td>{{user.email}}</td>
+          <td><!-- Single button -->
+            <div class="btn-group" role="group" aria-label="...">
+              <button type="button" class="btn btn-warning glyphicon glyphicon-edit"></button>
+              <button type="button" class="btn btn-danger glyphicon glyphicon-trash"></button>
+            </div>
+          </td>
+        </tr>
+      </table>
     </div>
 </div>
