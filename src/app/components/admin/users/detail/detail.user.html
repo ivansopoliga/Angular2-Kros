@@ -1,0 +1,41 @@
+<div *ngIf="error" class="alert alert-danger col-md-12">
+  <strong>{{ error }}</strong>
+</div>
+
+
+<div class="field col-md-12 col-xs-12">
+  Meno:
+  <input type="text" id="name" class="" value="{{user.name}}" name="name" [(ngModel)]="user.name">
+</div>
+
+<div class="field col-md-12 col-xs-12">
+  Priezvisko:
+  <input type="text" id="surname" class=""  name="surname" [(ngModel)]="user.surname">
+</div>
+
+<div class="field col-md-12 col-xs-12">
+  Heslo:
+  <input type="password" id="password" class="" placeholder="heslo" name="password" [(ngModel)]="user.password">
+</div>
+
+
+<div class="field col-md-12 col-xs-12">
+  Username:
+  <input type="text" id="username" class=""  name="username" [(ngModel)]="user.username">
+</div>
+
+<div class="field col-md-12 col-xs-12">
+  Email:
+  <input type="text" id="email" class=""  name="email" [(ngModel)]="user.email">
+</div>
+
+<div *ngIf="createUser">
+<div class="field col-md-12 col-xs-12">
+  <button type="submit" id="add_button" class="ui button" (click)="newUser()">Pridaj Používateľa</button>
+</div>
+</div>
+<div *ngIf="!createUser">
+  <div class="field col-md-12 col-xs-12">
+    <button type="submit" id="edit_button" class="ui button" (click)="editUser()">Edituj Používateľa</button>
+  </div>
+</div>

@@ -20,6 +20,8 @@ export class UserService {
         }), { headers  } );
     }
 
+
+
     public logout() {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
@@ -42,5 +44,8 @@ export class UserService {
     return this.http.get('http://localhost:50909/api/users', { headers  } );
   }
 
+  public removeUser(id: string) {
+    return this.http.delete('http://localhost:50909/api/users/'+id);
+  }
 
 }
