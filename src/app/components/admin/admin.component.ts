@@ -10,6 +10,17 @@ import {Response} from "@angular/http";
     directives: [ROUTER_DIRECTIVES]
 })
 
-export class AdminComponent{
+export class AdminComponent implements OnInit{
+  public contentHeight;
 
+  constructor() {
+    this.contentHeight = (window.innerHeight - 78).toString()+'px';
+  }
+
+  ngOnInit(){
+    window.addEventListener("resize", function(){
+      this.contentHeight = (window.innerHeight - 78).toString()+'px';
+      document.getElementById("content").style.minHeight = this.contentHeight;
+    });
+  }
 }
