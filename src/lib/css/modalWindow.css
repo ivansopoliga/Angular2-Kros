@@ -2,27 +2,17 @@
   min-height: 120vh;
   width: 120vw;
   background-color: rgba(0, 0, 0, 0.7);
-  position: fixed;/*absolute;*/
+  position: fixed;
+  /*absolute;*/
   top: -78px;
   left: -16.6vw;
   z-index: 100; }
 
 #window {
   background-color: white;
-  /*height: 500px;*/
-  padding: 10px;
+  padding: 30px;
   position: absolute;
-  left:2%;
-  right:2%;
-  top: 90px;
+  top: 0px;
   z-index: 200; }
 
-#closeEditOfficeWindow {
-  position: relative;
-  z-index: 200;
-  color: white;
-  font-size: 2em;
-  top: 25px;
-  cursor: pointer; }
-
-/*# sourceMappingURL=edit.office.admin.component.css.map */
+/*# sourceMappingURL=modalWindow.css.map */

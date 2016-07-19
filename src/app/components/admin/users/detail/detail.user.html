@@ -1,8 +1,7 @@
 <div id="darkBackground" (click)="closeWindow()" ></div>
 <div id="window" class="col-md-8 col-md-offset-2">
-
-
-      <h3 class="text-center" style="font-size: 5vh">Vytvorenie nového používateľa</h3>
+  <h3 *ngIf="!userData.id">Vytvorenie nového používateľa</h3>
+  <h3 *ngIf="userData.id">Editovanie existujúceho používateľa</h3>
       <div *ngIf="error" class="alert alert-danger col-md-12">
         <strong>{{ error }}</strong>
       </div>
@@ -41,43 +40,4 @@
   <div *ngIf="!createUser">
       <button type="submit" id="edit_button" class="btn btn-success  btn-block" (click)="editUser()">Edituj Používateľa</button>
   </div>
-
-<!--
-      <div class="field col-md-12 col-xs-12">
-        Meno:
-        <input type="text" id="name" class="" name="name" [(ngModel)]="userData.name">
-      </div>
-
-      <div class="field col-md-12 col-xs-12">
-        Priezvisko:
-        <input type="text" id="surname" class=""  name="surname" [(ngModel)]="userData.surname">
-      </div>
-
-      <div class="field col-md-12 col-xs-12">
-        Heslo:
-        <input type="password" id="password" class="" placeholder="heslo" name="password" [(ngModel)]="userData.password">
-      </div>
-
-      <div class="field col-md-12 col-xs-12">
-        Username:
-        <input type="text" id="username" class=""  name="username" [(ngModel)]="userData.username">
-      </div>
-
-      <div class="field col-md-12 col-xs-12">
-        Email:
-        <input type="text" id="email" class=""  name="email" [(ngModel)]="userData.email">
-      </div>
-
-      <div *ngIf="createUser">
-      <div class="field col-md-12 col-xs-12">
-        <button type="submit" id="add_button" class="ui button" (click)="newUser()">Pridaj Používateľa</button>
-      </div>
-      </div>
-      <div *ngIf="!createUser">
-        <div class="field col-md-12 col-xs-12">
-          <button type="submit" id="edit_button" class="ui button" (click)="editUser()">Edituj Používateľa</button>
-        </div>
-      </div>-->
-
-
  </div>

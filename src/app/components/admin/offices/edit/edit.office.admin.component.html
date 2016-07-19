@@ -1,12 +1,18 @@
 <div id="darkBackground" (click)="closeWindow()" ></div>
-<div id="window" class="col-md-8 col-md-offset-2">
-  <h3 class="text-center" style="font-size: 5vh" *ngIf="!officeData.id">Pridanie novej miestnosti</h3>
-  <h3 class="text-center" style="font-size: 5vh" *ngIf="officeData.id">Editovanie existujúcej miestnosti</h3>
 
+<div id="window" class="col-md-8 col-md-offset-2">
+
+  <h3 *ngIf="!officeData.id">Vytvorenie novej miestnosti</h3>
+  <h3 *ngIf="officeData.id">Editovanie existujúcej miestnosti</h3>
 
   <div *ngIf="error" class="alert alert-danger col-md-12">
     <strong>{{ error }}</strong>
   </div>
+
+  <div *ngIf="success" class="alert alert-success col-md-12">
+    <strong>{{ success }}</strong>
+  </div>
+
   <form role="form">
     <!--NAZOV MIESTNOSTI-->
     <div class="form-group">
@@ -21,18 +27,16 @@
     <!--POPIS-->
     <div class="form-group">
       <label for="description">Popis:</label>
-      <input type="text" id="description" class="form-control"  name="description" [(ngModel)]="officeData.description">
+      <textarea id="description" class="form-control" rows="3"  name="description" [(ngModel)]="officeData.description"></textarea>
     </div>
-
+    <!--SUBMIT BUTTON-->
+    <div *ngIf="!officeData.id">
+      <button type="submit" id="add_button" class="btn btn-success  btn-block" (click)="newUser()">Vytvoriť miestnosť</button>
+    </div>
+    <div *ngIf="officeData.id">
+      <button type="submit" id="edit_button" class="btn btn-success  btn-block" (click)="editUser()">Editovať miestnosť</button>
+    </div>
   </form>
-  <!--SUBMIT BUTTON-->
-  <div *ngIf="officeData.id">
-    <button type="submit" id="add_button" class="btn btn-success  btn-block" (click)="newUser()">Pridaj miestnosť</button>
-  </div>
-
-  <div *ngIf="!officeData.id">
-    <button type="submit" id="edit_button" class="btn btn-success  btn-block" (click)="editUser()">Edituj miestnosť</button>
-  </div>
 
 </div>
 

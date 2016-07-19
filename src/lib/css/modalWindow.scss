@@ -1,13 +1,16 @@
-#darkBackground{
+#darkBackground {
+  min-height: 120vh;
+  width: 120vw;
   background-color: rgba(0, 0, 0, 0.7);
-  position: fixed;
-  top:  -78px;
-  z-index: 100;
-}
+  position: fixed;/*absolute;*/
+  top: -78px;
+  left: -16.6vw;
+  z-index: 100; }
 
 #window {
   background-color: white;
-  padding: 20px;
-  position: fixed;
+  padding: 30px;
+  position: absolute;
+  top: 0px;
   z-index: 200;
 }
