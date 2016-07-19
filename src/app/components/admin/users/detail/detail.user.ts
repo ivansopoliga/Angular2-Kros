@@ -20,7 +20,7 @@ export class DetailUser implements OnInit{
   private error;
   private createUser:boolean;
 
-  constructor(private route: ActivatedRoute,private router: Router){
+  constructor(private route: ActivatedRoute,private router: Router, private userService:UserService){
   this.user = new User();
   }
 
@@ -30,10 +30,32 @@ export class DetailUser implements OnInit{
       if(Number.isNaN(id)){
         this.createUser=true;
       } else {
+        this.loadUser(id);
         this.createUser=false;
       }
     });
   }
+
+
+  loadUser(id:number){
+    let res:any;
+    this.userService.getUser(id).subscribe(
+      data => {
+        res = data.json();
+        console.log(res);
+        let jRes=JSON.parse(res);
+/*
+
+        this.user.email=user.email;
+        this.user.name=user.name;
+        this.user.surname=user.surname;
+        this.user.username=user.username;*/
+      },
+      error => console.error(error)
+    );
+  }
+
+
 
 
   editUser(id:number){
