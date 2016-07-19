@@ -2,6 +2,15 @@
 <button type="button" class="btn btn-success" (click)="newUser()"><span class="glyphicon glyphicon-plus"></span>  Nový používateľ</button>
 <user *ngIf="showOfficeWindow" (windowClose)="windowClose($event)" [userData]="userData"></user>
 <table class="table">
+  <thead>
+  <tr>
+    <th>Logo</th>
+    <th>Meno</th>
+    <th>Priezvisko</th>
+    <th>Email</th>
+    <th>Akcie</th>
+  </tr>
+  </thead>
   <tr *ngFor="let user of users">
     <td><img alt="Embedded Image" src="data:image/png;base64,{{user.photoBase64}}" width="50" height="50"></td>
     <td>{{user.name}}</td>
