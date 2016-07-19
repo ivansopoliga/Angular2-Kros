@@ -1,6 +1,6 @@
 <h2>Miestnosti</h2>
-<button type="button" class="btn btn-success" (click)="windowOpen()"><span class="glyphicon glyphicon-plus"></span>  Nová miestnosť</button>
-<new-office *ngIf="showNewOfficeWindow" (windowClose)="windowClose($event)"></new-office>
+<button type="button" class="btn btn-success" (click)="newOffice()"><span class="glyphicon glyphicon-plus"></span>  Nová miestnosť</button>
+<office *ngIf="showOfficeWindow" (windowClose)="windowClose($event)" [officeData]="officeData"></office>
 <table class="table table-hover col-md-12">
   <thead>
     <tr>
@@ -18,8 +18,8 @@
     <td>{{office.description}}</td>
     <td>
       <div class="btn-group" role="group" aria-label="...">
-        <button type="button" class="btn btn-warning glyphicon glyphicon-edit"></button>
-        <button type="button" class="btn btn-danger glyphicon glyphicon-trash"></button>
+        <button type="button" class="btn btn-warning glyphicon glyphicon-edit" (click)="editOffice(office.id)"></button>
+        <button type="button" class="btn btn-danger glyphicon glyphicon-trash" (click)="deleteOffice(office.id)"></button>
       </div>
     </td>
   </tr>

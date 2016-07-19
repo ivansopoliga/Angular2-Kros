@@ -1,7 +1,7 @@
 /**
  * Created by Tibor Poštek on 18.07.2016.
  */
-import {Component, OnInit,Input} from  '@angular/core';
+import {Component, OnInit,Input, Output, EventEmitter} from  '@angular/core';
 import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
 import {UserService} from '../../../../services/user.service';
 import {Response} from "@angular/http";
@@ -9,12 +9,20 @@ import 'rxjs/add/operator/map';
 import {User} from "./user";
 
 @Component({
+  selector: 'user',
   templateUrl: 'app/components/admin/users/detail/detail.user.html',
-  styleUrls: ['app/components/admin/users/users.admin.component.css'],
+  styleUrls: ['lib/css/modalWindow.css'],
   directives: [ROUTER_DIRECTIVES]
 })
 
-export class DetailUser implements OnInit{
+export class DetailUserComponent implements OnInit{
+  @Input() userData;
+  @Output() windowClose = new EventEmitter<boolean>();
+
+  closeWindow(){
+    this.windowClose.emit(false);
+  }
+
   private sub: any;
   private user:User;
   private error;

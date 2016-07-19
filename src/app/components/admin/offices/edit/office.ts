@@ -1,3 +1,6 @@
-/**
- * Created by Ondrej on 19.07.2016.
- */
+export class Office {
+  public name;
+  public description;
+  public id;
+  public type;
+}

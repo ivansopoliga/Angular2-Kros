@@ -1,12 +1,14 @@
-import {Component, Output, EventEmitter} from '@angular/core'
+import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {Office} from './office';
 
 @Component({
-  selector: "new-office",
+  selector: "office",
   templateUrl: 'app/components/admin/offices/edit/edit.office.admin.component.html',
-  styleUrls: ['app/components/admin/offices/edit/edit.office.admin.component.css']
+  styleUrls: ['lib/css/modalWindow.css']
 })
 
 export class EditOfficeAdminComponent {
+  @Input() officeData:Office;
   @Output() windowClose = new EventEmitter<boolean>();
 
   closeWindow(){

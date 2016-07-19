@@ -1,5 +1,6 @@
 <h2>Používatelia</h2>
-<a [routerLink]="['/admin/detail-user']"><button type="button" class="btn btn-success glyphicon glyphicon-plus"> Nový používateľa</button></a>
+<button type="button" class="btn btn-success" (click)="newUser()"><span class="glyphicon glyphicon-plus"></span>  Nový používateľ</button>
+<user *ngIf="showOfficeWindow" (windowClose)="windowClose($event)" [userData]="userData"></user>
 <table class="table">
   <tr *ngFor="let user of users">
     <td><img alt="Embedded Image" src="data:image/png;base64,{{user.photoBase64}}" width="50" height="50"></td>
@@ -8,8 +9,8 @@
     <td>{{user.email}}</td>
     <td><!-- Single button -->
       <div class="btn-group" role="group" aria-label="...">
-        <a [routerLink]="['/admin/detail-user',user.id]"> <button type="button" class="btn btn-warning glyphicon glyphicon-edit"></button></a>
-        <button type="button" class="btn btn-danger glyphicon glyphicon-trash" (click)="removeUser(user)"></button>
+        <button type="button" class="btn btn-warning glyphicon glyphicon-edit" (click)="editUser(user.id)"></button>
+        <button type="button" class="btn btn-danger glyphicon glyphicon-trash" (click)="removeUser(user.id)"></button>
       </div>
     </td>
   </tr>

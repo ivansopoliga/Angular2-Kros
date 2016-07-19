@@ -6,7 +6,8 @@ import {authProviders }      from './login.routes';
 import {AuthGuard} from "./AuthGuard";
 import {AdminGuard} from "./AdminGuard";
 
-import {UsersAdminComponent} from './admin/users/users.admin.component'
+import {UsersAdminComponent} from './admin/users/users.admin.component';
+import {OfficesAdminComponent} from './admin/offices/offices.admin.component';
 
 
 const routes: RouterConfig = [
@@ -19,11 +20,11 @@ const routes: RouterConfig = [
         path: '',
         component: UsersAdminComponent
       },
-      /*{
+      {
         path: 'offices',
         component: OfficesAdminComponent
       },
-      {
+      /*{
         path: 'cars',
         component: CarsAdminComponent
       },*/
@@ -34,8 +35,6 @@ const routes: RouterConfig = [
     ]
   }
 ];
-
-
 
 export const APP_ROUTER_PROVIDERS = [
   provideRouter(routes), authProviders

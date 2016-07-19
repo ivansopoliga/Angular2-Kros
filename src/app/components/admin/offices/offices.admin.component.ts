@@ -1,7 +1,8 @@
 import {Component, OnInit} from  '@angular/core';
 import {OfficeService} from '../../../services/office.service';
 import {Response} from "@angular/http";
-import {EditOfficeAdminComponent} from './edit/edit.office.admin.component'
+import {EditOfficeAdminComponent} from './edit/edit.office.admin.component';
+import {Office} from './edit/office';
 
 @Component({
   templateUrl: 'app/components/admin/offices/offices.admin.component.html',
@@ -10,12 +11,11 @@ import {EditOfficeAdminComponent} from './edit/edit.office.admin.component'
 })
 
 export class OfficesAdminComponent implements OnInit{
-  public offices;
-  private showNewOfficeWindow:boolean = true;
+  public offices:Array<Office>;
+  public officeData:Office;
+  private showOfficeWindow:boolean = false;
 
-  constructor(private officeService:OfficeService){
-    this.GetOffices();
-  }
+  constructor(private officeService:OfficeService){ }
 
   ngOnInit(){
     this.GetOffices();
@@ -30,14 +30,29 @@ export class OfficesAdminComponent implements OnInit{
       );
   }
 
+  newOffice() {
+    this.officeData = new Office();
+    this.windowOpen();
+  }
+
+  editOffice(id:number){
+    for(var i = 0; i < this.offices.length; i++){
+        if(this.offices[i].id == id){
+          this.officeData = this.offices[i];
+          break;
+        }
+    }
+    this.windowOpen();
+  }
+
   //opens edit.office.admin.component window
   windowOpen(){
-    this.showNewOfficeWindow = true;
+    this.showOfficeWindow = true;
   }
 
   //closes edit.office.admin.component window
   windowClose(action: boolean){
-    this.showNewOfficeWindow = action;
+    this.showOfficeWindow = action;
   }
 
 }
