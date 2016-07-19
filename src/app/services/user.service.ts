@@ -44,6 +44,13 @@ export class UserService {
     return this.http.get('http://localhost:50909/api/users', { headers  } );
   }
 
+  public getUser(id:number) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get('http://localhost:50909/api/users/'+id, { headers  } );
+  }
+
+
   public removeUser(id: string) {
     return this.http.delete('http://localhost:50909/api/users/'+id);
   }
