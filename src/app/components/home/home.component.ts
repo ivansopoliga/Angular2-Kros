@@ -2,6 +2,7 @@
 import {UserService} from '../../services/user.service';
 import {Router, ROUTER_DIRECTIVES, CanActivate} from '@angular/router';
 import {Cookie} from '../../services/ng2-cookies/ng2-cookies';
+import {LoginInfoComponent} from '../login_info/login_info.component';
 
 import {Response} from "@angular/http";
 
@@ -9,10 +10,11 @@ import {Response} from "@angular/http";
   selector: 'home',
   templateUrl: 'app/components/home/home.component.html',
   styleUrls: ['app/components/home/home.component.css'],
-  directives: [ROUTER_DIRECTIVES]
+  directives: [ROUTER_DIRECTIVES,LoginInfoComponent]
 })
 
 export class HomeComponent implements OnInit{
+  public isViewed: boolean=false
   response:any;
   users: any;
   public foods;
@@ -32,9 +34,6 @@ export class HomeComponent implements OnInit{
 
 
 
-
-
-
   GetUsersStare() {
   this.authService.getUsers().subscribe(response => {
       this.response = response;
@@ -50,7 +49,15 @@ export class HomeComponent implements OnInit{
       console.log(error.text());
     }
   );
+  }
+
+  show()
+  {
+    var str = (<HTMLTextAreaElement>document.getElementById("contentWindow"));
+   // alert(str.toString()+"" + this.isViewed);
+    this.isViewed=!this.isViewed;
 
   }
 
-}
+
+  }
