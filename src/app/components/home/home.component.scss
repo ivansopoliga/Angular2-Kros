@@ -24,7 +24,7 @@ div {
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 972px) {
   .col-xs-center {
     text-align: center;
   }
@@ -44,6 +44,8 @@ div {
 #content{
   width: 100%;
   padding: 20px !important;
+  background-color: white;
+  min-height: 92vh;
 }
 
 //HEADER

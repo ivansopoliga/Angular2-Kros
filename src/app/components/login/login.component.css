@@ -1,7 +1,4 @@
 #form_background {
-  background-image: url("../images/bcg.png");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
   min-height: 100%;
   margin: 0em;
   padding-top: 50px; }

@@ -31,14 +31,18 @@ div {
   padding: 20px; }
   #leftMenu a {
     color: #4d4d4d;
-    font-size: 1.2em;
+    font-size: 1.1em;
     margin-bottom: 10px; }
 
 .homeButton {
   margin-top: 20px;
   font-size: 0.9em !important; }
 
+#contentWindow {
+  background-color: white; }
+
 #content {
-  margin-left: 20px; }
+  padding-left: 20px !important;
+  min-height: 92vh; }
 
 /*# sourceMappingURL=admin.component.css.map */

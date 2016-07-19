@@ -3,14 +3,18 @@ html, body {
   font-family: "Ubuntu", sans-serif !important;
 }
 
-#loading_view {
+body {
   background-image: url("../../images/bcg.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
+}
+
+#loading_view {
   min-height: 100%;
   margin: 0em;
   padding-top: 50px;
 }
+
 #loading_center{
   float: none;
   min-height: 100%;
