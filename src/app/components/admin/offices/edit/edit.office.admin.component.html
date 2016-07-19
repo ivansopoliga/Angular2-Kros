@@ -1,6 +1,38 @@
-<div id="darkBackground" [ngStyle]="{'left': sizes['leftMenu'], 'width': sizes['width'], 'height': sizes['height']}" (click)="closeWindow()"></div>
-<div id="window" [ngStyle]="{'height': sizes['modalHeight'], 'top': sizes['top']}" class="col-md-8">
-  <h2 *ngIf="!officeData.id">Pridanie novej miestnosti</h2>
-  <h2 *ngIf="officeData.id">Editovanie existujúcej miestnosti</h2>
+<div id="darkBackground" (click)="closeWindow()" ></div>
+<div id="window" class="col-md-8 col-md-offset-2">
+  <h3 class="text-center" style="font-size: 5vh" *ngIf="!officeData.id">Pridanie novej miestnosti</h3>
+  <h3 class="text-center" style="font-size: 5vh" *ngIf="officeData.id">Editovanie existujúcej miestnosti</h3>
+
+
+  <div *ngIf="error" class="alert alert-danger col-md-12">
+    <strong>{{ error }}</strong>
+  </div>
+  <form role="form">
+    <!--NAZOV MIESTNOSTI-->
+    <div class="form-group">
+      <label for="name">Názov:</label>
+      <input type="text"  class="form-control" id="name" name="name" [(ngModel)]="officeData.name">
+    </div>
+    <!--TYP MIESTNOSTI-->
+    <div class="form-group">
+      <label for="type">Typ:</label>
+      <input type="text" id="type" class="form-control"  name="type" [(ngModel)]="officeData.type">
+    </div>
+    <!--POPIS-->
+    <div class="form-group">
+      <label for="description">Popis:</label>
+      <input type="text" id="description" class="form-control"  name="description" [(ngModel)]="officeData.description">
+    </div>
+
+  </form>
+  <!--SUBMIT BUTTON-->
+  <div *ngIf="officeData.id">
+    <button type="submit" id="add_button" class="btn btn-success  btn-block" (click)="newUser()">Pridaj miestnosť</button>
+  </div>
+
+  <div *ngIf="!officeData.id">
+    <button type="submit" id="edit_button" class="btn btn-success  btn-block" (click)="editUser()">Edituj miestnosť</button>
+  </div>
+
 </div>
 

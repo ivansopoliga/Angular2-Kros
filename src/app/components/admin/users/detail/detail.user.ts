@@ -15,54 +15,17 @@ import {User} from "./user";
   directives: [ROUTER_DIRECTIVES]
 })
 
-export class DetailUserComponent implements OnInit{
+export class DetailUserComponent{
   @Input() userData;
   @Output() windowClose = new EventEmitter<boolean>();
+
+  constructor(private route: ActivatedRoute,private router: Router, private userService:UserService){
+  }
+
 
   closeWindow(){
     this.windowClose.emit(false);
   }
-
-  private sub: any;
-  private user:User;
-  private error;
-  private createUser:boolean;
-
-  constructor(private route: ActivatedRoute,private router: Router, private userService:UserService){
-  this.user = new User();
-  }
-
-  ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      let id = +params['id'];
-      if(Number.isNaN(id)){
-        this.createUser=true;
-      } else {
-        this.loadUser(id);
-        this.createUser=false;
-      }
-    });
-  }
-
-
-  loadUser(id:number){
-    let res:any;
-    this.userService.getUser(id).subscribe(
-      data => {
-        res = data.json();
-        console.log(res);
-        let jRes=JSON.parse(res);
-/*
-
-        this.user.email=user.email;
-        this.user.name=user.name;
-        this.user.surname=user.surname;
-        this.user.username=user.username;*/
-      },
-      error => console.error(error)
-    );
-  }
-
 
 
 
@@ -72,7 +35,25 @@ export class DetailUserComponent implements OnInit{
 
 
   newUser(){
-    alert(this.user.email);
+  let email = this.userData.email;
+  let name = this.userData.name;
+  let surname = this.userData.surname;
+  let password = this.userData.password;
+  let username = this.userData.username;
+  let photo = this.userData.photo;
+    let Roles= '1';
+    this.userService.addUser(JSON.stringify({email, name, username, surname, password, photo, Roles})).subscribe(
+      data => {
+      },
+      error => {
+        alert(error)
+      },
+      () => {
+        alert('Uspesne pridany pouzivatel');
+        this.closeWindow();
+      }
+    );
+
   }
 
 
