@@ -1,45 +1,83 @@
 <div id="darkBackground" (click)="closeWindow()" ></div>
 <div id="window" class="col-md-8 col-md-offset-2">
-  <h2>Vytvorenie nového používateľa</h2>
-  <div *ngIf="error" class="alert alert-danger col-md-12">
-    <strong>{{ error }}</strong>
-  </div>
 
 
-  <div class="field col-md-12 col-xs-12">
-    Meno:
-    <input type="text" id="name" class="" name="name" [(ngModel)]="userData.name">
-  </div>
-
-  <div class="field col-md-12 col-xs-12">
-    Priezvisko:
-    <input type="text" id="surname" class=""  name="surname" [(ngModel)]="userData.surname">
-  </div>
-
-  <div class="field col-md-12 col-xs-12">
-    Heslo:
-    <input type="password" id="password" class="" placeholder="heslo" name="password" [(ngModel)]="userData.password">
-  </div>
-
-
-  <div class="field col-md-12 col-xs-12">
-    Username:
-    <input type="text" id="username" class=""  name="username" [(ngModel)]="userData.username">
-  </div>
-
-  <div class="field col-md-12 col-xs-12">
-    Email:
-    <input type="text" id="email" class=""  name="email" [(ngModel)]="userData.email">
-  </div>
-
-  <div *ngIf="createUser">
-  <div class="field col-md-12 col-xs-12">
-    <button type="submit" id="add_button" class="ui button" (click)="newUser()">Pridaj Používateľa</button>
-  </div>
-  </div>
-  <div *ngIf="!createUser">
-    <div class="field col-md-12 col-xs-12">
-      <button type="submit" id="edit_button" class="ui button" (click)="editUser()">Edituj Používateľa</button>
+      <h3 class="text-center" style="font-size: 5vh">Vytvorenie nového používateľa</h3>
+      <div *ngIf="error" class="alert alert-danger col-md-12">
+        <strong>{{ error }}</strong>
+      </div>
+  <form role="form">
+    <!--MENO-->
+    <div class="form-group">
+      <label for="name">Meno:</label>
+      <input type="text"  class="form-control" id="name" name="name" [(ngModel)]="userData.name">
     </div>
+    <!--PRIEZVISKO-->
+    <div class="form-group">
+      <label for="surname">Priezvisko:</label>
+      <input type="text" id="surname" class="form-control"  name="surname" [(ngModel)]="userData.surname">
+    </div>
+    <!--USERNAME-->
+    <div class="form-group">
+      <label for="username">Username:</label>
+      <input type="text" id="username" class="form-control"  name="username" [(ngModel)]="userData.username">
+    </div>
+    <!--HESLO-->
+    <div class="form-group">
+      <label for="password">Heslo:</label>
+      <input type="password" id="password" class="form-control" name="password" [(ngModel)]="userData.password">
+    </div>
+    <!--EMAIL-->
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" class="form-control" name="email" [(ngModel)]="userData.email">
+    </div>
+  </form>
+ <!--SUBMIT BUTTON-->
+  <div *ngIf="createUser">
+      <button type="submit" id="add_button" class="btn btn-success  btn-block" (click)="newUser()">Pridaj Používateľa</button>
   </div>
+
+  <div *ngIf="!createUser">
+      <button type="submit" id="edit_button" class="btn btn-success  btn-block" (click)="editUser()">Edituj Používateľa</button>
+  </div>
+
+<!--
+      <div class="field col-md-12 col-xs-12">
+        Meno:
+        <input type="text" id="name" class="" name="name" [(ngModel)]="userData.name">
+      </div>
+
+      <div class="field col-md-12 col-xs-12">
+        Priezvisko:
+        <input type="text" id="surname" class=""  name="surname" [(ngModel)]="userData.surname">
+      </div>
+
+      <div class="field col-md-12 col-xs-12">
+        Heslo:
+        <input type="password" id="password" class="" placeholder="heslo" name="password" [(ngModel)]="userData.password">
+      </div>
+
+      <div class="field col-md-12 col-xs-12">
+        Username:
+        <input type="text" id="username" class=""  name="username" [(ngModel)]="userData.username">
+      </div>
+
+      <div class="field col-md-12 col-xs-12">
+        Email:
+        <input type="text" id="email" class=""  name="email" [(ngModel)]="userData.email">
+      </div>
+
+      <div *ngIf="createUser">
+      <div class="field col-md-12 col-xs-12">
+        <button type="submit" id="add_button" class="ui button" (click)="newUser()">Pridaj Používateľa</button>
+      </div>
+      </div>
+      <div *ngIf="!createUser">
+        <div class="field col-md-12 col-xs-12">
+          <button type="submit" id="edit_button" class="ui button" (click)="editUser()">Edituj Používateľa</button>
+        </div>
+      </div>-->
+
+
  </div>
