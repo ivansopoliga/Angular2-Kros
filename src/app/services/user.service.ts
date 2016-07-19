@@ -51,6 +51,15 @@ export class UserService {
   }
 
 
+  public addUser(user:string) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:50909/api/users',user, {headers});
+  }
+
+
+
+
   public removeUser(id: string) {
     return this.http.delete('http://localhost:50909/api/users/'+id);
   }
