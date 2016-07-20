@@ -31,10 +31,10 @@
     </div>
     <!--SUBMIT BUTTON-->
     <div *ngIf="!officeData.id">
-      <button type="submit" id="add_button" class="btn btn-success  btn-block" (click)="newUser()">Vytvoriť miestnosť</button>
+      <button type="submit" id="add_button" class="btn btn-success  btn-block" (click)="newOffice()">Vytvoriť miestnosť</button>
     </div>
     <div *ngIf="officeData.id">
-      <button type="submit" id="edit_button" class="btn btn-success  btn-block" (click)="editUser()">Editovať miestnosť</button>
+      <button type="submit" id="edit_button" class="btn btn-success  btn-block" (click)="editOffice()">Editovať miestnosť</button>
     </div>
   </form>
 

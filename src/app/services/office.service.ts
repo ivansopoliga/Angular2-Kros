@@ -17,5 +17,21 @@ export class OfficeService {
     return this.http.get('http://localhost:50909/api/rooms', { headers  } );
   }
 
+  public addOffice(office:string) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:50909/api/rooms',office, {headers});
+  }
+
+  public editOffice(id:string, office:string){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.put("http://localhost:50909/api/rooms/"+id, office, {headers});
+  }
+
+  public removeOffice(id: string) {
+    return this.http.delete('http://localhost:50909/api/rooms/'+id);
+  }
+
 
 }

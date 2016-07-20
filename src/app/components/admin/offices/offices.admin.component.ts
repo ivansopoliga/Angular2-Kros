@@ -30,6 +30,21 @@ export class OfficesAdminComponent implements OnInit{
       );
   }
 
+  deleteOffice(id:string){
+    if(confirm("Naozaj chcete vymazať miestnosť?")) {
+      this.officeService.removeOffice(id).subscribe(
+        data => {
+        },
+        error => {
+          alert(error)
+        },
+        () => {
+          this.GetOffices();
+        }
+      )
+    }
+  }
+
   newOffice() {
     this.officeData = new Office();
     this.windowOpen();
@@ -54,5 +69,4 @@ export class OfficesAdminComponent implements OnInit{
   windowClose(action: boolean){
     this.showOfficeWindow = action;
   }
-
 }
