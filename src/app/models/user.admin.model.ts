@@ -5,8 +5,8 @@ export class User{
   public id;
   public name;
   public surname;
-  public password;
-  public username;
   public email;
   public photo;
+  public isLocked;
+  public roles;
 }

@@ -7,36 +7,32 @@ import {Observable} from "rxjs/Rx";
 
 @Injectable()
 export class UserService {
-    hasRoleAdmin: boolean = false;
+  hasRoleAdmin: boolean = false;
 
-    constructor(private http: Http) {
+  constructor(private http: Http) { }
+
+  public login(Email: string, Password: string) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+     return this.http.post('http://localhost:50909/api/authentification/login', JSON.stringify({
+          Email, Password
+      }), { headers  } );
+  }
+
+  public logout() {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    Cookie.delete('KrosbookAuthentification');
+    return this.http.get('http://localhost:50909/api/authentification/logout', { headers  } );
+  }
+
+  public isLoggedIn(){
+    if(Cookie.get('KrosbookAuthentification')!=null){
+      return true;
     }
-
-    public login(Email: string, Password: string) {
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-       return this.http.post('http://localhost:50909/api/authentification/login', JSON.stringify({
-            Email, Password
-        }), { headers  } );
-    }
-
-
-
-    public logout() {
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      Cookie.delete('KrosbookAuthentification');
-      return this.http.get('http://localhost:50909/api/authentification/logout', { headers  } );
-    }
-
-
-    public  isLoggedIn(){
-      if(Cookie.get('KrosbookAuthentification')!=null){
-        return true;
-      }
-      else {
-        return false;}
-    }
+    else {
+      return false;}
+  }
 
   public getUsers() {
     let headers = new Headers();
@@ -50,15 +46,17 @@ export class UserService {
     return this.http.get('http://localhost:50909/api/users/'+id, { headers  } );
   }
 
-
   public addUser(user:string) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:50909/api/users',user, {headers});
+    return this.http.post('http://localhost:50909/api/users/', user, {headers});
   }
 
-
-
+  public editUser(id:string, user:string) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.put('http://localhost:50909/api/users/'+id, user, {headers});
+  }
 
   public removeUser(id: string) {
     return this.http.delete('http://localhost:50909/api/users/'+id);

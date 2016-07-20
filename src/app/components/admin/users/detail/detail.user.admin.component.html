@@ -1,0 +1,36 @@
+<div id="darkBackground" (click)="closeWindow()" ></div>
+<div id="window" class="col-md-8 col-md-offset-2">
+  <h3 *ngIf="!userData.id">Vytvorenie nového používateľa</h3>
+  <h3 *ngIf="userData.id">Editovanie existujúceho používateľa</h3>
+  <div *ngIf="error" class="alert alert-danger col-md-12">
+    <strong>{{ error }}</strong>
+  </div>
+  <div *ngIf="success" class="alert alert-success col-md-12">
+    <strong>{{ success }}</strong>
+  </div>
+  <form role="form">
+    <!--MENO-->
+    <div class="form-group">
+      <label for="name">Meno:</label>
+      <input type="text"  class="form-control" id="name" name="name" [(ngModel)]="userData.name">
+    </div>
+    <!--PRIEZVISKO-->
+    <div class="form-group">
+      <label for="surname">Priezvisko:</label>
+      <input type="text" id="surname" class="form-control"  name="surname" [(ngModel)]="userData.surname">
+    </div>
+    <!--EMAIL-->
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" class="form-control" name="email" [(ngModel)]="userData.email">
+    </div>
+    <!--SUBMIT BUTTON-->
+    <div *ngIf="!userData.id">
+      <button type="submit" id="add_button" class="btn btn-success  btn-block" (click)="newUser()">Vytvoriť používateľa</button>
+    </div>
+
+    <div *ngIf="userData.id">
+      <button type="submit" id="edit_button" class="btn btn-success  btn-block" (click)="editUser()">Editovať používateľa</button>
+    </div>
+  </form>
+ </div>

@@ -29,12 +29,8 @@
 #userInfo >  [class*="col-sm-4"]{
   width: 100%;
   float: none;
+  padding-left: 0px;
+  padding-right: 0px;
 
-}
-
-#userInfo {
-  /*position: absolute;
-  z-index: 1;*/
-  padding: 0;
 }
 

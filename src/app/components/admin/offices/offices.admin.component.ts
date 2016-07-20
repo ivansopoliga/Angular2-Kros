@@ -1,8 +1,8 @@
 import {Component, OnInit} from  '@angular/core';
 import {OfficeService} from '../../../services/office.service';
 import {Response} from "@angular/http";
-import {EditOfficeAdminComponent} from './edit/edit.office.admin.component';
-import {Office} from './edit/office';
+import {EditOfficeAdminComponent} from './detail/detail.office.admin.component';
+import {Office} from '../../../models/office.admin.model';
 
 @Component({
   templateUrl: 'app/components/admin/offices/offices.admin.component.html',
@@ -23,9 +23,8 @@ export class OfficesAdminComponent implements OnInit{
 
   GetOffices() {
     this.officeService.getOffices()
-      .map((res:Response) => res.json())
       .subscribe(
-        data => {this.offices = data},
+        data => {this.offices = data.json()},
         error => console.error(error)
       );
   }
@@ -60,12 +59,12 @@ export class OfficesAdminComponent implements OnInit{
     this.windowOpen();
   }
 
-  //opens edit.office.admin.component window
+  //opens detail.office.admin.component window
   windowOpen(){
     this.showOfficeWindow = true;
   }
 
-  //closes edit.office.admin.component window
+  //closes detail.office.admin.component window
   windowClose(action: boolean){
     this.showOfficeWindow = action;
   }

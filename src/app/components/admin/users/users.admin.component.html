@@ -1,6 +1,6 @@
 <h2>Používatelia</h2>
 <button type="button" class="btn btn-success" (click)="newUser()"><span class="glyphicon glyphicon-plus"></span>  Nový používateľ</button>
-<user *ngIf="showOfficeWindow" (windowClose)="windowClose($event)" [userData]="userData"></user>
+<user *ngIf="showOfficeWindow" (windowClose)="windowClose($event)" (updateList)="GetUsers()" [userData]="userData"></user>
 <table class="table">
   <thead>
   <tr>
@@ -24,5 +24,4 @@
     </td>
   </tr>
 </table>
-<router-outlet></router-outlet>
 

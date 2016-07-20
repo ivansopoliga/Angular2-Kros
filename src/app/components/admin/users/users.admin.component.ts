@@ -1,14 +1,14 @@
 import {Component, OnInit} from  '@angular/core';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {UserService} from '../../../services/user.service';
-import {DetailUserComponent} from './detail/detail.user';
-import {User} from './detail/user';
+import {DetailUserAdminComponent} from './detail/detail.user.admin.component';
+import {User} from '../../../models/user.admin.model';
 import {Response} from "@angular/http";
 
 @Component({
   templateUrl: 'app/components/admin/users/users.admin.component.html',
   styleUrls: ['app/components/admin/users/users.admin.component.css'],
-  directives: [DetailUserComponent, ROUTER_DIRECTIVES]
+  directives: [DetailUserAdminComponent, ROUTER_DIRECTIVES]
 })
 
 export class UsersAdminComponent implements OnInit {
@@ -58,19 +58,18 @@ export class UsersAdminComponent implements OnInit {
           alert(error)
         },
         () => {
-          alert('Uspesne odstraneny pouzivatel');
-          this.router.navigate(['/admin/users']);
+          this.GetUsers();
         }
       )
     }
   }
 
-  //opens edit.office.admin.component window
+  //opens detail.office.admin.component window
   windowOpen(){
     this.showOfficeWindow = true;
   }
 
-  //closes edit.office.admin.component window
+  //closes detail.office.admin.component window
   windowClose(action: boolean){
     this.showOfficeWindow = action;
   }

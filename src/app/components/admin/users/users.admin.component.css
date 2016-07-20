@@ -1,3 +1,5 @@
-
+td {
+  vertical-align: middle !important;
+  text-align: justify; }
 
 /*# sourceMappingURL=users.admin.component.css.map */

@@ -1,11 +1,11 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
-import {Office} from './office';
+import {Office} from '../../../../models/office.admin.model';
 import {OfficeService} from '../../../../services/office.service';
 import {Response} from "@angular/http";
 
 @Component({
   selector: "office",
-  templateUrl: 'app/components/admin/offices/edit/edit.office.admin.component.html',
+  templateUrl: 'app/components/admin/offices/detail/detail.office.admin.component.html',
   styleUrls: ['lib/css/modalWindow.css']
 })
 
