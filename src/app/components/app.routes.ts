@@ -8,6 +8,7 @@ import {AdminGuard} from "./AdminGuard";
 
 import {UsersAdminComponent} from './admin/users/users.admin.component';
 import {OfficesAdminComponent} from './admin/offices/offices.admin.component';
+import {CarsAdminComponent} from "./admin/cars/cars.admin.component";
 
 
 const routes: RouterConfig = [
@@ -24,10 +25,10 @@ const routes: RouterConfig = [
         path: 'offices',
         component: OfficesAdminComponent
       },
-      /*{
+      {
         path: 'cars',
         component: CarsAdminComponent
-      },*/
+      },
       {
         path: 'users',
         component: UsersAdminComponent
