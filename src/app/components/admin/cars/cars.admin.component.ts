@@ -11,7 +11,7 @@ import {Car} from './edit/car';
   selector: 'cars-admin',
   templateUrl:'app/components/admin/cars/cars.admin.component.html',
   styleUrls: ['app/components/admin/cars/cars.admin.component.css'],
-  directives: [ROUTER_DIRECTIVES]
+  directives: [ROUTER_DIRECTIVES, EditCarComponent]
 })
 
 
@@ -29,9 +29,8 @@ export class CarsAdminComponent implements OnInit{    /*onInit - spustanie pri i
 
   getCars() {
     this.carService.getCars()
-      .map((res:Response) => res.json()) /**/
       .subscribe(
-        data => {this.cars = data},
+        data => {this.cars = data.json()},
         error => console.error(error)
       );
   }
