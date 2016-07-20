@@ -1,0 +1,24 @@
+<h2>Autá</h2>
+<button type="button" class="btn btn-success" (click)="newCar()"><span class="glyphicon glyphicon-plus"></span>  Nové vozidlo</button>
+<car *ngIf="showCarWindow" (windowClose)="windowClose($event)" [carData]="carData"></car>
+<table class="table">
+  <thead>
+  <tr>
+    <th>SPZ</th>
+    <th>Znacka</th>
+  </tr>
+  </thead>
+  <tr *ngFor="let car of cars">
+    <td>{{car.spz}}</td>
+    <td>{{car.znacka}}</td>
+
+    <td><!-- Single button -->
+      <div class="btn-group" role="group" aria-label="...">
+        <button type="button" class="btn btn-warning glyphicon glyphicon-edit" (click)="editCar(car.id)"></button>
+        <button type="button" class="btn btn-danger glyphicon glyphicon-trash" (click)="removeCar(car.id)"></button>
+      </div>
+    </td>
+  </tr>
+</table>
+<router-outlet></router-outlet>
+
