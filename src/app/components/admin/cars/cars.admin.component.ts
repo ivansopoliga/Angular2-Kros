@@ -74,9 +74,6 @@ export class CarsAdminComponent implements OnInit{    /*onInit - spustanie pri i
   windowClose(action: boolean){
     this.showCarWindow = action;
   }
-
-
-
 }
 
 
