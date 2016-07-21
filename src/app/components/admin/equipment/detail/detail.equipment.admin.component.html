@@ -1,0 +1,42 @@
+<div id="darkBackground" (click)="closeWindow()" ></div>
+
+<div id="window" class="col-md-8 col-md-offset-2">
+
+  <h3 *ngIf="!equipmentData.id">Pridať nové vybavenie</h3>
+  <h3 *ngIf="equipmentData.id">Editovanie existujúce vybavenie</h3>
+
+  <div *ngIf="error" class="alert alert-danger col-md-12">
+    <strong>{{ error }}</strong>
+  </div>
+
+  <div *ngIf="success" class="alert alert-success col-md-12">
+    <strong>{{ success }}</strong>
+  </div>
+
+  <form role="form">
+
+    <!--TYP VYBAVENIA-->
+    <div class="form-group">
+      <label for="name">Typ:</label>
+      <input type="text"  class="form-control" id="name" name="name" [(ngModel)]="equipmentData.description">
+    </div>
+
+    <!--MNOZSTVO VYBAVENIA -->
+    <div class="form-group">
+      <label for="type">Množstvo vybavenia:</label>
+      <input type="text" id="type" class="form-control"  name="type" [(ngModel)]="equipmentData.amount">
+    </div>
+
+
+    <!--SUBMIT BUTTON-->
+    <div *ngIf="!equipmentData.id">
+      <button type="submit" id="add_button" class="btn btn-success  btn-block" (click)="newEquipment()">Pridať vybavenie</button>
+    </div>
+    <div *ngIf="equipmentData.id">
+      <button type="submit" id="edit_button" class="btn btn-success  btn-block" (click)="editEquipment()">Editovať vybavenie</button>
+    </div>
+
+  </form>
+
+</div>
+

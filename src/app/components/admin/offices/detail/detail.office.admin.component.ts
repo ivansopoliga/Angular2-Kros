@@ -1,6 +1,6 @@
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import {Office} from '../../../../models/office.admin.model';
-import {Equipment} from '../../../../models/equipment.model';
+import {Equipment} from '../../../../models/equipment.admin.model';
 import {OfficeService} from '../../../../services/office.service';
 import {EquipmentComponent} from './equipment/equipment.component';
 import {Response} from "@angular/http";
