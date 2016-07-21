@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, Output, OnInit} from '@angular/core';
 import {OfficeService} from '../../../../../services/office.service';
+import {Equipment} from '../../../../../models/equipment.admin.model';
 
 @Component({
   selector: 'equipment',
