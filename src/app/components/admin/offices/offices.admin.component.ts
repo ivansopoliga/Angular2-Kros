@@ -11,16 +11,16 @@ import {Office} from '../../../models/office.admin.model';
 
 export class OfficesAdminComponent implements OnInit{
   public offices:Array<Office>;
-  public officeData:Office;
+  public officeId:number;
   private showOfficeWindow:boolean = false;
 
   constructor(private officeService:OfficeService){ }
 
   ngOnInit(){
-    this.GetOffices();
+    this.getOffices();
   }
 
-  GetOffices() {
+  getOffices() {
     this.officeService.getOffices()
       .subscribe(
         data => {this.offices = data.json()},
@@ -37,21 +37,21 @@ export class OfficesAdminComponent implements OnInit{
           alert(error)
         },
         () => {
-          this.GetOffices();
+          this.getOffices();
         }
       )
     }
   }
 
   newOffice() {
-    this.officeData = new Office();
+    this.officeId = null;
     this.windowOpen();
   }
 
   editOffice(id:number){
     for(var i = 0; i < this.offices.length; i++){
         if(this.offices[i].id == id){
-          this.officeData = this.offices[i];
+          this.officeId = this.offices[i].id;
           break;
         }
     }
@@ -64,7 +64,7 @@ export class OfficesAdminComponent implements OnInit{
   }
 
   //closes detail.office.admin.component window
-  windowClose(action: boolean){
-    this.showOfficeWindow = action;
+  windowClose(){
+    this.showOfficeWindow = false;
   }
 }

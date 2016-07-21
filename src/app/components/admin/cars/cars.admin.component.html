@@ -1,17 +1,16 @@
 <h2>Autá</h2>
 <button type="button" class="btn btn-success" (click)="newCar()"><span class="glyphicon glyphicon-plus"></span>  Nové vozidlo</button>
-<car *ngIf="showCarWindow" (windowClose)="windowClose($event)"  (updateList)="GetCars()" [carData]="carData"></car>
+<car *ngIf="showCarWindow" (windowClose)="windowClose($event)" (updateList)="getCars()" [carId]="carId"></car>
 <table class="table">
   <thead>
   <tr>
-    <th>SPZ</th>
-    <th>Znacka</th>
+    <th>ŠPZ</th>
+    <th>Značka</th>
   </tr>
   </thead>
   <tr *ngFor="let car of cars">
     <td>{{car.name}}</td>
     <td>{{car.plate}}</td>
-
     <td><!-- Single button -->
       <div class="btn-group" role="group" aria-label="...">
         <button type="button" class="btn btn-warning glyphicon glyphicon-edit" (click)="editCar(car.id)"></button>

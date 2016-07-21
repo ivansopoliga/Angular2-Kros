@@ -1,6 +1,6 @@
 <h2>Miestnosti</h2>
 <button type="button" class="btn btn-success" (click)="newOffice()"><span class="glyphicon glyphicon-plus"></span>  Nová miestnosť</button>
-<office *ngIf="showOfficeWindow" (windowClose)="windowClose($event)" (updateList)="GetOffices()" [officeData]="officeData"></office>
+<office *ngIf="showOfficeWindow" (windowClose)="windowClose()" (updateList)="getOffices()" [officeId]="officeId"></office>
 <table class="table table-hover col-md-12">
   <thead>
     <tr>

@@ -15,24 +15,37 @@ import {Response} from "@angular/http";
 export class DetailCarAdminComponent {
   public error;
   public success;
+  public carData:Car = new Car();
 
-  constructor(private carService:CarService) { }
-
-  @Input() carData:Car;
+  @Input() carId:number;
   @Output() windowClose = new EventEmitter<boolean>();
   @Output() updateList = new EventEmitter<boolean>();
 
+  constructor(private carService:CarService) { }
+
+  ngOnInit() {
+    if(this.carId)
+      this.getData();
+  }
+
+  getData(){
+    this.carService.getCar(this.carId).subscribe(
+      data => {this.carData = data.json()},
+      error => console.error(error)
+    );
+  }
+
   newCar(){
-    let spz = this.carData.spz;  /*data su nacitane z ineho componentu*/
-    let znacka = this.carData.znacka;
-    this.carService.addCar(JSON.stringify({spz, znacka})).subscribe( /* volanie metody addCar s param*/
+    let plate = this.carData.plate;  /*data su nacitane z ineho componentu*/
+    let name = this.carData.name;
+    this.carService.addCar(JSON.stringify({plate, name})).subscribe( /* volanie metody addCar s param*/
       data => {        /*vyhodnotenie podla return hodnoty requestu*/
       },
       error => {
         this.error = error;
       },
       () => {
-        this.success = 'Miestnosť úspešne vytvorená.';
+        this.success = 'Vozidlo úspešne vytvorené.';
         this.carData = new Car();
         this.updateList.emit(true);
         //this.closeWindow();
@@ -42,17 +55,17 @@ export class DetailCarAdminComponent {
 
   editCar(){
     let id = this.carData.id
-    let spz = this.carData.spz;
-    let znacka = this.carData.znacka;
+    let plate = this.carData.plate;
+    let name = this.carData.name;
 
-    this.carService.editCar(id, JSON.stringify({id, spz, znacka})).subscribe(
+    this.carService.editCar(id, JSON.stringify({id, name, plate})).subscribe(
       data => {
       },
       error => {
         this.error = error;
       },
       () => {
-        this.success = 'Miestnosť úspešne upravená.';
+        this.success = 'Vozidlo úspešne upravené.';
         this.updateList.emit(true);
         //this.closeWindow();
       }

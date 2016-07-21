@@ -19,7 +19,7 @@
       <input type="number" class="form-control" name="equipmentAmount" min="0" name="amuont" [(ngModel)]="amount">
     </div>
     <div class="col-md-1">
-      <button class="btn btn-success glyphicon glyphicon-plus" (click)="addEquipment()"></button>
+      <button class="btn btn-success glyphicon glyphicon-plus" (click)="addEquipment()" [disabled]="amount == 0"></button>
     </div>
   </div>
 </div>

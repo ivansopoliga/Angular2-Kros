@@ -8,12 +8,13 @@ import {Response} from "@angular/http";
 import 'rxjs/add/operator/map';
 import {User} from "../../../../models/user.admin.model";
 import {AvatarComponent} from './avatar/avatar.component';
+import {EmailValidator} from '../../../../validators/email.validator';
 
 @Component({
   selector: 'user',
   templateUrl: 'app/components/admin/users/detail/detail.user.admin.component.html',
   styleUrls: ['lib/css/modalWindow.css'],
-  directives: [AvatarComponent]
+  directives: [AvatarComponent, EmailValidator]
 })
 
 export class DetailUserAdminComponent implements OnInit {

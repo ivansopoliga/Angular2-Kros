@@ -20,6 +20,13 @@ export class CarService {
     return this.http.get('http://localhost:50909/api/cars', { headers  } ); /*headers tu nemusi byt*/
   }
 
+  public getCar(id:number) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get('http://localhost:50909/api/cars/'+id, { headers  } ); /*headers tu nemusi byt*/
+  }
+
+
   public addCar(car:string) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');

@@ -1,37 +1,41 @@
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
+import {NgForm} from '@angular/forms';
 import {Office} from '../../../../models/office.admin.model';
 import {Equipment} from '../../../../models/equipment.model';
 import {OfficeService} from '../../../../services/office.service';
 import {EquipmentComponent} from './equipment/equipment.component';
-import {Response} from "@angular/http";
+import {OfficeNameValidator} from '../../../../validators/officeName.validator';
+
 
 @Component({
   selector: "office",
   templateUrl: 'app/components/admin/offices/detail/detail.office.admin.component.html',
   styleUrls: ['lib/css/modalWindow.css'],
-  directives: [EquipmentComponent]
+  directives: [EquipmentComponent, OfficeNameValidator]
 })
 
 export class DetailOfficeAdminComponent implements OnInit{
   public error:string;
   public success:string;
   public equipment:Equipment;
+  public formReset:boolean = true;
+  public officeData:Office = new Office();
 
-  constructor(private officeService:OfficeService) { }
-
-  @Input() officeData:Office;
+  @Input() officeId:number;
   @Output() windowClose = new EventEmitter<boolean>();
   @Output() updateList = new EventEmitter<boolean>();
 
+  constructor(private officeService:OfficeService) { }
+
   ngOnInit() {
-    if(this.officeData.id)
-      this.getEquipmentData();
+    if(this.officeId)
+      this.getData();
     else this.equipment = JSON.parse('[]');
   }
 
-  getEquipmentData(){
-    this.officeService.getOffice(this.officeData.id).subscribe(
-      data => {this.equipment = data.json().equipment},
+  getData(){
+    this.officeService.getOffice(this.officeId).subscribe(
+      data => {this.officeData = data.json(), this.equipment = data.json().equipment},
       error => console.error(error)
     );
   }
@@ -50,6 +54,8 @@ export class DetailOfficeAdminComponent implements OnInit{
         () => {
           this.success = 'Miestnosť úspešne vytvorená.';
           this.officeData = new Office();
+          this.formReset = false;
+          setTimeout(() => this.formReset = true, 0);
           this.updateList.emit(true);
           //this.closeWindow();
         }
@@ -77,6 +83,6 @@ export class DetailOfficeAdminComponent implements OnInit{
   }
 
   closeWindow(){
-    this.windowClose.emit(false);
+    this.windowClose.emit(true);
   }
 }

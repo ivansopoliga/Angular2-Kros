@@ -13,24 +13,26 @@
     <strong>{{ success }}</strong>
   </div>
 
-  <form role="form">
+  <form role="form" *ngIf="formReset" #officeForm="ngForm">
 
     <!--NAZOV MIESTNOSTI-->
     <div class="form-group">
       <label for="name">Názov:</label>
-      <input type="text"  class="form-control" id="name" name="name" [(ngModel)]="officeData.name">
+      <input type="text"  class="form-control" id="name" name="name" #name="ngModel" [(ngModel)]="officeData.name" maxlength="50" autocomplete="off" required validateofficename>
+      <div [hidden]="name.valid || name.pristine" class="alert alert-danger"><strong>Názov miestnosti je povinná a unikátna položka!</strong> Maximálna dĺžka reťazca je 50 znakov.</div>
     </div>
 
     <!--TYP MIESTNOSTI-->
     <div class="form-group">
       <label for="type">Typ:</label>
-      <input type="text" id="type" class="form-control"  name="type" [(ngModel)]="officeData.type">
+      <input type="text" id="type" class="form-control"  name="type" #type="ngModel" [(ngModel)]="officeData.type" maxlength="25" required>
+      <div [hidden]="type.valid || type.pristine" class="alert alert-danger"><strong>Typ miestnosti je povinná položka!</strong> Maximálna dĺžka reťazca je 25 znakov.</div>
     </div>
     <!--POPIS-->
 
     <div class="form-group">
       <label for="description">Popis:</label>
-      <textarea id="description" class="form-control" rows="3"  name="description" [(ngModel)]="officeData.description"></textarea>
+      <textarea id="description" class="form-control" rows="3"  name="description" [(ngModel)]="officeData.description" maxlength="255"></textarea>
     </div>
 
     <!--ZARIADENIE MIESTNOSTI-->
@@ -38,10 +40,10 @@
 
     <!--SUBMIT BUTTON-->
     <div *ngIf="!officeData.id">
-      <button type="submit" id="add_button" class="btn btn-success  btn-block" (click)="newOffice()">Vytvoriť miestnosť</button>
+      <button type="submit" id="add_button" class="btn btn-success  btn-block" (click)="newOffice()" [disabled]="!officeForm.form.valid">Vytvoriť miestnosť</button>
     </div>
     <div *ngIf="officeData.id">
-      <button type="submit" id="edit_button" class="btn btn-success  btn-block" (click)="editOffice()">Editovať miestnosť</button>
+      <button type="submit" id="edit_button" class="btn btn-success  btn-block" (click)="editOffice()" [disabled]="!officeForm.form.valid">Editovať miestnosť</button>
     </div>
 
   </form>

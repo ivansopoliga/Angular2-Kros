@@ -17,7 +17,7 @@ export class OfficeService {
     return this.http.get('http://localhost:50909/api/rooms', { headers  } );
   }
 
-  public getOffice(id: string) { //with equipment
+  public getOffice(id: number) { //with equipment
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.get('http://localhost:50909/api/rooms/'+id, {headers});

@@ -15,7 +15,7 @@ import {Car} from '../../../models/car.model';
 
 export class CarsAdminComponent implements OnInit{    /*onInit - spustanie pri inicializaci prvku*/
   public cars:Array<Car>;
-  public carData:Car;
+  public carId:number;
   private showCarWindow:boolean = false;
 
   constructor(private carService:CarService){ }
@@ -48,14 +48,14 @@ export class CarsAdminComponent implements OnInit{    /*onInit - spustanie pri i
   }
 
   newCar() {
-    this.carData = new Car();
+    this.carId = null;
     this.windowOpen();
   }
 
   editCar(id:number){
     for(var i = 0; i < this.cars.length; i++){
       if(this.cars[i].id == id){
-        this.carData = this.cars[i];
+        this.carId = this.cars[i].id;
         break;
       }
     }

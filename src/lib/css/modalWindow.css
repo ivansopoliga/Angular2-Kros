@@ -19,4 +19,10 @@
 .control-label {
   padding-top: 7px; }
 
+.ng-valid[required] {
+  border-right: 5px solid #42a948; }
+
+.ng-invalid {
+  border-right: 5px solid #a94442; }
+
 /*# sourceMappingURL=modalWindow.css.map */
