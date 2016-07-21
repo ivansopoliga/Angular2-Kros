@@ -9,6 +9,7 @@ import {Observable} from "rxjs/Rx";
 @Injectable()
 export class EquipmentService {
   hasRoleAdmin: boolean = false;
+
   constructor(private http: Http) {
   }
 
@@ -19,14 +20,11 @@ export class EquipmentService {
       return this.http.get('http://localhost:50909/api/equipment', { headers  } );
   }
 
-  public getEquipment(id:String){
+  public getEquipment(id:number){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get('http://localhost:50909/api/equipment'+id, { headers  } );
+    return this.http.get('http://localhost:50909/api/equipment/'+id, { headers  } );
   }
-
-
-
 
   public addEquipment(equipment:string) {
     let headers = new Headers();
@@ -34,7 +32,7 @@ export class EquipmentService {
     return this.http.post('http://localhost:50909/api/equipment',equipment, {headers});
   }
 
-  public editEquipment(id:string, equipment:string){
+  public editEquipment(id:number, equipment:string){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.put("http://localhost:50909/api/equipment/"+id, equipment, {headers});

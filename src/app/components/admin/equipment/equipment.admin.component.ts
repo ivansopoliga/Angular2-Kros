@@ -15,16 +15,16 @@ import {DetailEquipmentAdminComponent} from './detail/detail.equipment.admin.com
 
 export class EquipmentAdminComponent implements OnInit{
   public equipments:Array<Equipment>;
-  public equipmentData:Equipment;
+  public equipmentId:number;
   private showEquipmentWindow:boolean = false;
 
   constructor(private equipmentService:EquipmentService){ }
 
   ngOnInit(){
-    this.GetEquipments();
+    this.getEquipments();
   }
 
-  GetEquipments() {
+  getEquipments() {
     this.equipmentService.getEquipments()
       .subscribe(
         data => {this.equipments = data.json()},
@@ -41,21 +41,21 @@ export class EquipmentAdminComponent implements OnInit{
           alert(error)
         },
         () => {
-          this.GetEquipments();
+          this.getEquipments();
         }
       )
     }
   }
 
   newEquimpent() {
-    this.equipmentData = new Equipment();
+    this.equipmentId = null;
     this.windowOpen();
   }
 
   editEquimpent(id:number){
     for(var i = 0; i < this.equipments.length; i++){
       if(this.equipments[i].id == id){
-        this.equipmentData = this.equipments[i];
+        this.equipmentId = this.equipments[i].id;
         break;
       }
     }

@@ -2,43 +2,50 @@
  * Created by krosaci on 21.7.2016.
  */
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
-import {Office} from '../../../../models/office.admin.model';
 import {Equipment} from '../../../../models/equipment.admin.model';
 import {EquipmentService} from '../../../../services/equipment.service';
-//import {EquipmentComponent} from './equipment.component';
 import {Response} from "@angular/http";
-
-
-import {stringify} from "@angular/common/esm/src/facade/lang";
 
 @Component({
   selector: "equipment",
   templateUrl: 'app/components/admin/equipment/detail/detail.equipment.admin.component.html',
   styleUrls: ['lib/css/modalWindow.css'],
-  //directives: [EquipmentComponent]
 })
 
-export class DetailEquipmentAdminComponent {
+export class DetailEquipmentAdminComponent implements OnInit {
   public error;
   public success;
+  public equipmentData:Equipment = new Equipment();
 
-  constructor(private equipmentService:EquipmentService) { }
-
-  @Input() equipmentData:Equipment;
+  @Input() equipmentId:number;
   @Output() windowClose = new EventEmitter<boolean>();
   @Output() updateList = new EventEmitter<boolean>();
 
+  constructor(private equipmentService:EquipmentService) { }
+
+  ngOnInit(){
+    if(this.equipmentId)
+      this.getEquipment();
+  }
+
+  getEquipment(){
+    this.equipmentService.getEquipment(this.equipmentId).subscribe(
+      data => {this.equipmentData = data.json()},
+      error => console.log(error)
+    );
+  }
+
   newEquipment(){
-    let description = this.equipmentData.description;  /*data su nacitane z ineho componentu*/
+    let description = this.equipmentData.description;
     let amount = this.equipmentData.amount;
-    this.equipmentService.addEquipment(JSON.stringify({description , amount})).subscribe( /* volanie metody addCar s param*/
-      data => {        /*vyhodnotenie podla return hodnoty requestu*/
+    this.equipmentService.addEquipment(JSON.stringify({description , amount})).subscribe(
+      data => {
       },
       error => {
         this.error = error;
       },
       () => {
-        this.success = 'Miestnosť úspešne vytvorená.';
+        this.success = 'Vybavenie úspešne pridané.';
         this.equipmentData = new Equipment();
         this.updateList.emit(true);
         //this.closeWindow();
@@ -47,11 +54,10 @@ export class DetailEquipmentAdminComponent {
   }
 
   editEquipment(){
-    let id=this.equipmentData.id;
+    let id = this.equipmentData.id;
     let description= this.equipmentData.description;
     let amount = this.equipmentData.amount;
-    // pouzitie STRINGIFY
-    this.equipmentService.editEquipment(stringify(id), JSON.stringify({id, description, amount})).subscribe(
+    this.equipmentService.editEquipment(id, JSON.stringify({id, description, amount})).subscribe(
       data => {
       },
       error => {
