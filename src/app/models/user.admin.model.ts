@@ -8,5 +8,5 @@ export class User{
   public email;
   public photo;
   public isLocked;
-  public roles;
+  public roles = JSON.parse("[]");
 }

@@ -62,4 +62,10 @@ export class UserService {
     return this.http.delete('http://localhost:50909/api/users/'+id);
   }
 
+  public getRoles(){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get('http://localhost:50909/api/roles', { headers} );
+  }
+
 }

@@ -35,3 +35,7 @@ td {
   vertical-align: middle !important;
   text-align: justify;
 }
+
+.checkbox {
+  margin-top: 0px;
+}
