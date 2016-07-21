@@ -2,16 +2,13 @@ import {Component, OnInit} from  '@angular/core';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {CarService} from '../../../services/car.service';
 import {Response} from "@angular/http";
-import {EditCarComponent} from './edit/edit.car';
-import {Car} from './edit/car';
-
-
+import {DetailCarAdminComponent} from './detail/detail.car.admin.component';
+import {Car} from '../../../models/car.model';
 
 @Component({
   selector: 'cars-admin',
   templateUrl:'app/components/admin/cars/cars.admin.component.html',
-  styleUrls: ['app/components/admin/cars/cars.admin.component.css'],
-  directives: [ROUTER_DIRECTIVES, EditCarComponent]
+  directives: [ROUTER_DIRECTIVES, DetailCarAdminComponent]
 })
 
 
@@ -65,12 +62,12 @@ export class CarsAdminComponent implements OnInit{    /*onInit - spustanie pri i
     this.windowOpen();
   }
 
-  //opens edit.office.admin.component window
+  //opens detail.office.admin.component window
   windowOpen(){
     this.showCarWindow = true;
   }
 
-  //closes edit.office.admin.component window
+  //closes detail.office.admin.component window
   windowClose(action: boolean){
     this.showCarWindow = action;
   }

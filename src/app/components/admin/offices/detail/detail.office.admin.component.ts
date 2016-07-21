@@ -12,7 +12,7 @@ import {Response} from "@angular/http";
   directives: [EquipmentComponent]
 })
 
-export class EditOfficeAdminComponent implements OnInit{
+export class DetailOfficeAdminComponent implements OnInit{
   public error:string;
   public success:string;
   public equipment:Equipment;

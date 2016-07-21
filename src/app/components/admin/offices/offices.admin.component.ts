@@ -1,13 +1,12 @@
 import {Component, OnInit} from  '@angular/core';
 import {OfficeService} from '../../../services/office.service';
 import {Response} from "@angular/http";
-import {EditOfficeAdminComponent} from './detail/detail.office.admin.component';
+import {DetailOfficeAdminComponent} from './detail/detail.office.admin.component';
 import {Office} from '../../../models/office.admin.model';
 
 @Component({
   templateUrl: 'app/components/admin/offices/offices.admin.component.html',
-  styleUrls: ['app/components/admin/offices/offices.admin.component.css'],
-  directives: [EditOfficeAdminComponent]
+  directives: [DetailOfficeAdminComponent]
 })
 
 export class OfficesAdminComponent implements OnInit{

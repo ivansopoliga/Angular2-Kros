@@ -2,17 +2,17 @@
  * Created by tomas on 20.07.2016.
  */
 import {Component, Input, Output, EventEmitter} from '@angular/core';
-import {Car} from './car';
+import {Car} from '../../../../models/car.model';
 import {CarService} from '../../../../services/car.service';
 import {Response} from "@angular/http";
 
 @Component({
   selector: "car",
-  templateUrl: 'app/components/admin/cars/edit/edit.car.html',
+  templateUrl: 'app/components/admin/cars/detail/detail.car.admin.component.html',
   styleUrls: ['lib/css/modalWindow.css']
 })
 
-export class EditCarComponent {
+export class DetailCarAdminComponent {
   public error;
   public success;
 

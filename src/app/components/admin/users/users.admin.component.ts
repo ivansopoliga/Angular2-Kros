@@ -7,7 +7,6 @@ import {Response} from "@angular/http";
 
 @Component({
   templateUrl: 'app/components/admin/users/users.admin.component.html',
-  styleUrls: ['app/components/admin/users/users.admin.component.css'],
   directives: [DetailUserAdminComponent, ROUTER_DIRECTIVES]
 })
 
