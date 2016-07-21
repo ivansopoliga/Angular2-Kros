@@ -1,17 +1,21 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import {Office} from '../../../../models/office.admin.model';
+import {Equipment} from '../../../../models/equipment.model';
 import {OfficeService} from '../../../../services/office.service';
+import {EquipmentComponent} from './equipment/equipment.component';
 import {Response} from "@angular/http";
 
 @Component({
   selector: "office",
   templateUrl: 'app/components/admin/offices/detail/detail.office.admin.component.html',
-  styleUrls: ['lib/css/modalWindow.css']
+  styleUrls: ['lib/css/modalWindow.css'],
+  directives: [EquipmentComponent]
 })
 
-export class EditOfficeAdminComponent {
-  public error;
-  public success;
+export class EditOfficeAdminComponent implements OnInit{
+  public error:string;
+  public success:string;
+  public equipment:Equipment;
 
   constructor(private officeService:OfficeService) { }
 
@@ -19,11 +23,25 @@ export class EditOfficeAdminComponent {
   @Output() windowClose = new EventEmitter<boolean>();
   @Output() updateList = new EventEmitter<boolean>();
 
+  ngOnInit() {
+    if(this.officeData.id)
+      this.getEquipmentData();
+    else this.equipment = JSON.parse('[]');
+  }
+
+  getEquipmentData(){
+    this.officeService.getOffice(this.officeData.id).subscribe(
+      data => {this.equipment = data.json().equipment},
+      error => console.error(error)
+    );
+  }
+
   newOffice(){
     let name = this.officeData.name;
     let type = this.officeData.type;
     let description = this.officeData.description;
-    this.officeService.addOffice(JSON.stringify({name, type, description})).subscribe(
+    let equipment = this.equipment;
+    this.officeService.addOffice(JSON.stringify({name, type, description, equipment})).subscribe(
       data => {
       },
         error => {
@@ -43,7 +61,8 @@ export class EditOfficeAdminComponent {
     let name = this.officeData.name;
     let type = this.officeData.type;
     let description = this.officeData.description;
-    this.officeService.editOffice(id, JSON.stringify({id, name, type, description})).subscribe(
+    let equipment = this.equipment;
+    this.officeService.editOffice(id, JSON.stringify({id, name, type, description, equipment})).subscribe(
       data => {
       },
       error => {

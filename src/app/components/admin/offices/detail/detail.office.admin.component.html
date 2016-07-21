@@ -14,21 +14,28 @@
   </div>
 
   <form role="form">
+
     <!--NAZOV MIESTNOSTI-->
     <div class="form-group">
       <label for="name">Názov:</label>
       <input type="text"  class="form-control" id="name" name="name" [(ngModel)]="officeData.name">
     </div>
+
     <!--TYP MIESTNOSTI-->
     <div class="form-group">
       <label for="type">Typ:</label>
       <input type="text" id="type" class="form-control"  name="type" [(ngModel)]="officeData.type">
     </div>
     <!--POPIS-->
+
     <div class="form-group">
       <label for="description">Popis:</label>
       <textarea id="description" class="form-control" rows="3"  name="description" [(ngModel)]="officeData.description"></textarea>
     </div>
+
+    <!--ZARIADENIE MIESTNOSTI-->
+    <equipment [equipment]="equipment">Načítavanie dát...</equipment>
+
     <!--SUBMIT BUTTON-->
     <div *ngIf="!officeData.id">
       <button type="submit" id="add_button" class="btn btn-success  btn-block" (click)="newOffice()">Vytvoriť miestnosť</button>
@@ -36,6 +43,7 @@
     <div *ngIf="officeData.id">
       <button type="submit" id="edit_button" class="btn btn-success  btn-block" (click)="editOffice()">Editovať miestnosť</button>
     </div>
+
   </form>
 
 </div>
