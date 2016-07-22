@@ -1,7 +1,7 @@
 ﻿import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user.service';
 import {Router, ROUTER_DIRECTIVES, CanActivate} from '@angular/router';
-import {Cookie} from '../../services/ng2-cookies/ng2-cookies';
+import {Cookie} from 'ng2-cookies/ng2-cookies';
 import {UserInfoComponent} from './userInfo/userInfo.component';
 
 import {Response} from "@angular/http";

@@ -2,7 +2,7 @@
 import {Router} from '@angular/router';
 import {UserService} from '../../services/user.service';
 import 'rxjs/add/operator/map'
-import { Cookie } from '../../services/ng2-cookies/ng2-cookies';
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 
 @Component({
     selector: 'login',

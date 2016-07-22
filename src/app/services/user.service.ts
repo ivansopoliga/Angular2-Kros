@@ -1,7 +1,7 @@
 ﻿import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http';
 import 'rxjs/add/operator/map'
-import { Cookie } from './ng2-cookies/ng2-cookies';
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 import {Observable} from "rxjs/Rx";
 
 
