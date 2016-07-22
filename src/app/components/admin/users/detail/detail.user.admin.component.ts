@@ -1,53 +1,70 @@
 /**
  * Created by Tibor Poštek on 18.07.2016.
  */
-import {Component, OnInit,Input, Output, EventEmitter} from  '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from  '@angular/core';
 import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
 import {UserService} from '../../../../services/user.service';
 import {Response} from "@angular/http";
 import 'rxjs/add/operator/map';
 import {User} from "../../../../models/user.admin.model";
-import {AvatarComponent} from './avatar/avatar.component';
 import {EmailValidator} from '../../../../validators/email.validator';
+import {Role} from "../../../../models/role.admin.model";
 
 @Component({
   selector: 'user',
   templateUrl: 'app/components/admin/users/detail/detail.user.admin.component.html',
   styleUrls: ['lib/css/modalWindow.css'],
-  directives: [AvatarComponent, EmailValidator]
+  directives: [ EmailValidator]
 })
 
 export class DetailUserAdminComponent implements OnInit {
-  public error;
-  public success;
-  public roles;
-  public userRoles:Array<boolean> = new Array();
+  public error:string;
+  public success:string;
+  public allRoles:Array<Role>;
+  public formReset:boolean = true;
+  public checkedRoles:Array<boolean> = new Array();
+  public userData:User = new User();
 
-  constructor(private route: ActivatedRoute,private router: Router, private userService:UserService){ }
-
-  @Input() userData:User;
+  @Input() userId:number;
   @Output() windowClose = new EventEmitter<boolean>();
   @Output() updateList = new EventEmitter<boolean>();
 
-  ngOnInit() {
-    this.getRoles();
+  constructor(private userService:UserService) {
   }
 
-  newUser(){
+
+  ngOnInit() {
+    if (this.userId) {
+      this.getData();
+    }
+  }
+
+  getData() {
+    this.userService.getUser(this.userId).subscribe(
+      data => {
+        this.userData = data.json()
+      },
+      error => console.error(error),
+      () => this.getRoles());
+  }
+
+
+  newUser() {
     let email = this.userData.email;
     let name = this.userData.name;
     let surname = this.userData.surname;
-    let passwordHash = "$2a$06$gF/DQUqo0z8xD3kzEketk.XGRt8PZP3fvbEUVbOcmWxeVI8jaH0OG";
-    let isLocked = false;
-    let dateCreated = new Date().toLocaleString("sk-SK");
-    let photo = "0x89504E470D0A1A0A0000000D4948445200000040000000400806000000AA6971DE0000000473424954080808087C086488000000097048597300000B1300000B1301009A9C180000071649444154789CED9B6B6C154514C77F45FAA6229487A6B42A3E4A23A2203E82A8C1F8368054A3D12F7E2031860F28C1C418345111A43E";
     let roles = JSON.parse("[]");
-    for(var i = 0; i < this.userRoles.length; i++) {
-      if(this.userRoles[i]) {
-        roles.push({"roleId": this.roles[i].id});
+    for (var i = 0; i < this.checkedRoles.length; i++) {
+      if (this.checkedRoles[i]) {
+        roles.push({"roleId": this.allRoles[i].id});
       }
     }
-    this.userService.addUser(JSON.stringify({email, name, surname, passwordHash, isLocked, dateCreated, photo, roles})).subscribe(
+    this.userService.addUser(JSON.stringify({
+      email,
+      name,
+      surname,
+      roles
+    })).subscribe(
       data => {
       },
       error => {
@@ -56,23 +73,24 @@ export class DetailUserAdminComponent implements OnInit {
       () => {
         this.success = 'Užívateľ úspešne vytvorený.';
         this.userData = new User();
-        for(var i = 0; i < this.roles.length; i++)
-          this.userRoles[i] = false;
+        this.formReset = false;
+        setTimeout(() => this.formReset = true, 0);
+        for (var i = 0; i < this.allRoles.length; i++)
+          this.checkedRoles[i] = false;
         this.updateList.emit(true);
       }
     );
-
   }
 
-  editUser(){
+  editUser() {
     let id = this.userData.id;
     let email = this.userData.email;
     let name = this.userData.name;
     let surname = this.userData.surname;
     let roles = JSON.parse("[]");
-    for(var i = 0; i < this.userRoles.length; i++) {
-      if(this.userRoles[i]) {
-        roles.push({"roleId": this.roles[i].id});
+    for (var i = 0; i < this.checkedRoles.length; i++) {
+      if (this.checkedRoles[i]) {
+        roles.push({"roleId": this.allRoles[i].id});
       }
     }
     this.userService.editUser(id, JSON.stringify({id, email, name, surname, roles})).subscribe(
@@ -89,22 +107,28 @@ export class DetailUserAdminComponent implements OnInit {
 
   }
 
-  getRoles(){
+  getRoles() {
     this.userService.getRoles().subscribe(
-      data => {this.roles = data.json()},
+      data => {
+        this.allRoles = data.json()
+      },
       error => console.log(error),
       () => this.setUserRoles()
     );
   }
 
-  setUserRoles(){
-    for(var i = 0; i < this.roles.length; i++)
-      this.userRoles[i] = false;
-    for(var i = 0; i < this.userData.roles.length; i++)
-      this.userRoles[this.userData.roles[i].roleId - 1] = true;
+  setUserRoles() {
+    for (var i = 0; i < this.allRoles.length; i++) {
+      this.checkedRoles[i] = false;
+      for (var j = 0; j < this.userData.roles.length; j++) {
+        if (this.allRoles[i].id == this.userData.roles[j].roleId) {
+          this.checkedRoles[i] = true;
+        }
+      }
+    }
   }
 
-  closeWindow(){
+  closeWindow() {
     this.windowClose.emit(false);
   }
 }

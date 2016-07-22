@@ -3,16 +3,16 @@ import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {UserService} from '../../../services/user.service';
 import {DetailUserAdminComponent} from './detail/detail.user.admin.component';
 import {User} from '../../../models/user.admin.model';
-import {Response} from "@angular/http";
+
 
 @Component({
   templateUrl: 'app/components/admin/users/users.admin.component.html',
-  directives: [DetailUserAdminComponent, ROUTER_DIRECTIVES]
+  directives: [DetailUserAdminComponent]
 })
 
 export class UsersAdminComponent implements OnInit {
   public users:Array<User>;
-  public userData:User;
+  public userId:number;
   private showOfficeWindow:boolean  = false;
 
   constructor(private router:Router, private userService:UserService) {
@@ -34,14 +34,14 @@ export class UsersAdminComponent implements OnInit {
   }
 
   newUser(){
-    this.userData = new User();
+    this.userId = null;
     this.windowOpen();
   }
 
   editUser(id:number){
     for(var i = 0; i < this.users.length; i++){
       if(this.users[i].id == id){
-        this.userData = this.users[i];
+        this.userId = this.users[i].id;
         break;
       }
     }

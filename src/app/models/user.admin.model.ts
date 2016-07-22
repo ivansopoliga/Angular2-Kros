@@ -1,3 +1,4 @@
+import {Role} from "./role.admin.model";
 /**
  * Created by Tibor Poštek on 19.07.2016.
  */
@@ -6,7 +7,7 @@ export class User{
   public name;
   public surname;
   public email;
-  public photo;
+  public photoBase64;
   public isLocked;
-  public roles = JSON.parse("[]");
+  public roles= JSON.parse("[]"); //= JSON.parse("[]"); //:
 }

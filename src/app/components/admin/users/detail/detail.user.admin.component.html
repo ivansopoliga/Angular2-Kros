@@ -8,7 +8,7 @@
   <div *ngIf="success" class="alert alert-success col-md-12">
     <strong>{{ success }}</strong>
   </div>
-  <form role="form">
+  <form role="form" >
 
     <!--MENO-->
     <div class="form-group">
@@ -29,14 +29,14 @@
     </div>
 
     <!--FOTKA-->
-    <avatar [avatarData]="userData.photo"></avatar>
+    <img *ngIf="userData.id" alt="Embedded Image" src="data:image/png;base64,{{userData.photoBase64}}" width="50" height="50">
 
     <!--ROLE POUZÍVATEĽA-->
     <div class="form-group">
       <label>Role používateľa: </label>
-      <div class="checkbox" *ngFor="let role of roles">
+      <div class="checkbox" *ngFor="let role of allRoles">
         <label>
-          <input type="checkbox" name="role" [checked]="userRoles[role.id - 1]" (change)="userRoles[role.id - 1] = $event.target.checked">{{role.name}}
+          <input type="checkbox" name="role" [checked]="checkedRoles[role.id -1]" (change)="checkedRoles[role.id -1] = $event.target.checked">{{role.name}}
         </label>
       </div>
     </div>
