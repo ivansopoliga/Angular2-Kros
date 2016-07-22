@@ -13,27 +13,32 @@
     <strong>{{ success }}</strong>
   </div>
 
-  <form role="form">
+  <form role="form" *ngIf="formReset" #carForm="ngForm">
 
     <!--NAZOV VOZIDLA-->
     <div class="form-group">
-      <label for="name">Názov:</label>
-      <input type="text"  class="form-control" id="name" name="name" [(ngModel)]="carData.name">
+      <label for="name">Značka a typ:</label>
+      <input type="text"  class="form-control" id="name" name="name" #name="ngModel" [(ngModel)]="carData.name" minlength="3" required>
+      <div *ngIf="name.dirty && !name.valid && name.errors.required" class="alert alert-danger"><strong>Značka a typ auta sú povinná položka.</strong></div>
+      <div *ngIf="name.dirty && !name.valid && name.errors.minLength" class="alert alert-danger"><strong>Toto nevyzerá ako značka a typ auta.</strong></div>
     </div>
 
     <!--SPZ VOZIDLA-->
     <div class="form-group">
-      <label for="type">SPZ:</label>
-      <input type="text" id="type" class="form-control"  name="type" [(ngModel)]="carData.plate">
+      <label for="plate">ŠPZ:</label>
+      <input type="text" class="form-control" style="text-transform: uppercase;" id="plate"  name="plate" #plate="ngModel" [(ngModel)]="carData.plate" placeholder="ZA-000AA" autocomplete="off" required validatePlate validatePlateUniqueness>
+      <div *ngIf="plate.dirty && !plate.valid && plate.errors.validatePlate" class="alert alert-danger"><strong>Neplatný tvar ŠPZ.</strong></div>
+      <div *ngIf="plate.dirty && !plate.valid && plate.errors.validatePlateUniqueness" class="alert alert-danger"><strong>Táto ŠPZ už je v systéme zaregistrovaná.</strong> Zadajte inú ŠPZ.</div>
+      <div *ngIf="plate.dirty && !plate.valid && plate.errors.required" class="alert alert-danger"><strong>ŠPZ-ka auta je povinná položka.</strong></div>
     </div>
 
 
     <!--SUBMIT BUTTON-->
     <div *ngIf="!carData.id">
-      <button type="submit" id="add_button" class="btn btn-success  btn-block" (click)="newCar()">Vytvoriť vozidlo</button>
+      <button type="submit" id="add_button" class="btn btn-success  btn-block" (click)="newCar()" [disabled]="!carForm.form.valid">Vytvoriť vozidlo</button>
     </div>
     <div *ngIf="carData.id">
-      <button type="submit" id="edit_button" class="btn btn-success  btn-block" (click)="editCar()">Editovať vozidlo</button>
+      <button type="submit" id="edit_button" class="btn btn-success  btn-block" (click)="editCar()" [disabled]="!carForm.form.valid">Editovať vozidlo</button>
     </div>
 
   </form>

@@ -10,6 +10,7 @@ import {UsersAdminComponent} from './admin/users/users.admin.component';
 import {OfficesAdminComponent} from './admin/offices/offices.admin.component';
 import {CarsAdminComponent} from "./admin/cars/cars.admin.component";
 import {EquipmentAdminComponent} from "./admin/equipment/equipment.admin.component";
+import {RolesAdminComponent} from './admin/roles/roles.admin.component';
 
 
 const routes: RouterConfig = [
@@ -37,6 +38,10 @@ const routes: RouterConfig = [
       {
         path: 'equipment',
         component: EquipmentAdminComponent
+      },
+      {
+        path: 'roles',
+        component: RolesAdminComponent
       }
     ]
   }

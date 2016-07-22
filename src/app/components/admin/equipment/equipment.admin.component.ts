@@ -1,16 +1,11 @@
-/**
- * Created by krosaci on 21.7.2016.
- */
 import {Component, OnInit} from  '@angular/core';
 import {EquipmentService} from '../../../services/equipment.service';
-import {Response} from "@angular/http";
 import {Equipment} from '../../../models/equipment.admin.model';
-import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {DetailEquipmentAdminComponent} from './detail/detail.equipment.admin.component';
 
 @Component({
   templateUrl: 'app/components/admin/equipment/equipment.admin.component.html',
-  directives: [ROUTER_DIRECTIVES, DetailEquipmentAdminComponent]
+  directives: [DetailEquipmentAdminComponent]
 })
 
 export class EquipmentAdminComponent implements OnInit{
@@ -35,14 +30,9 @@ export class EquipmentAdminComponent implements OnInit{
   deleteEquimpment(id:string){
     if(confirm("Naozaj chcete vymazať vybavenie?")) {
       this.equipmentService.removeEquipment(id).subscribe(
-        data => {
-        },
-        error => {
-          alert(error)
-        },
-        () => {
-          this.getEquipments();
-        }
+        data => { },
+        error => { alert(error) },
+        () => { this.getEquipments() }
       )
     }
   }

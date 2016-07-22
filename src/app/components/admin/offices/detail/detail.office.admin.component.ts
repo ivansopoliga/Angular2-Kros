@@ -1,5 +1,4 @@
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
-import {NgForm} from '@angular/forms';
 import {Office} from '../../../../models/office.admin.model';
 import {Equipment} from '../../../../models/equipment.admin.model';
 import {OfficeService} from '../../../../services/office.service';

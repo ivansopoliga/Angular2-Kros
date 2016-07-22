@@ -1,6 +1,5 @@
 import {Component, OnInit} from  '@angular/core';
 import {OfficeService} from '../../../services/office.service';
-import {Response} from "@angular/http";
 import {DetailOfficeAdminComponent} from './detail/detail.office.admin.component';
 import {Office} from '../../../models/office.admin.model';
 
@@ -31,14 +30,9 @@ export class OfficesAdminComponent implements OnInit{
   deleteOffice(id:string){
     if(confirm("Naozaj chcete vymazať miestnosť?")) {
       this.officeService.removeOffice(id).subscribe(
-        data => {
-        },
-        error => {
-          alert(error)
-        },
-        () => {
-          this.getOffices();
-        }
+        data => { },
+        error => { alert(error) },
+        () => { this.getOffices() }
       )
     }
   }

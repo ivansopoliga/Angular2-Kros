@@ -1,20 +1,19 @@
-/**
- * Created by tomas on 20.07.2016.
- */
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {Car} from '../../../../models/car.model';
 import {CarService} from '../../../../services/car.service';
-import {Response} from "@angular/http";
+import {PlateUniquenessValidator, PlateValidator} from '../../../../validators/plate.validator';
 
 @Component({
   selector: "car",
   templateUrl: 'app/components/admin/cars/detail/detail.car.admin.component.html',
-  styleUrls: ['lib/css/modalWindow.css']
+  styleUrls: ['lib/css/modalWindow.css'],
+  directives: [PlateUniquenessValidator, PlateValidator]
 })
 
 export class DetailCarAdminComponent {
   public error;
   public success;
+  public formReset:boolean = true;
   public carData:Car = new Car();
 
   @Input() carId:number;
@@ -36,10 +35,10 @@ export class DetailCarAdminComponent {
   }
 
   newCar(){
-    let plate = this.carData.plate;  /*data su nacitane z ineho componentu*/
+    let plate = this.carData.plate.toUpperCase();
     let name = this.carData.name;
-    this.carService.addCar(JSON.stringify({plate, name})).subscribe( /* volanie metody addCar s param*/
-      data => {        /*vyhodnotenie podla return hodnoty requestu*/
+    this.carService.addCar(JSON.stringify({plate, name})).subscribe(
+      data => {
       },
       error => {
         this.error = error;
@@ -47,15 +46,16 @@ export class DetailCarAdminComponent {
       () => {
         this.success = 'Vozidlo úspešne vytvorené.';
         this.carData = new Car();
+        this.formReset = false;
+        setTimeout(() => this.formReset = true, 0);
         this.updateList.emit(true);
-        //this.closeWindow();
       }
     );
   }
 
   editCar(){
     let id = this.carData.id
-    let plate = this.carData.plate;
+    let plate = this.carData.plate.toUpperCase();
     let name = this.carData.name;
 
     this.carService.editCar(id, JSON.stringify({id, name, plate})).subscribe(
@@ -67,7 +67,6 @@ export class DetailCarAdminComponent {
       () => {
         this.success = 'Vozidlo úspešne upravené.';
         this.updateList.emit(true);
-        //this.closeWindow();
       }
     );
   }

@@ -1,19 +1,15 @@
 import {Component, OnInit} from  '@angular/core';
-import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {CarService} from '../../../services/car.service';
-import {Response} from "@angular/http";
 import {DetailCarAdminComponent} from './detail/detail.car.admin.component';
 import {Car} from '../../../models/car.model';
 
 @Component({
   selector: 'cars-admin',
   templateUrl:'app/components/admin/cars/cars.admin.component.html',
-  directives: [ROUTER_DIRECTIVES, DetailCarAdminComponent]
+  directives: [DetailCarAdminComponent]
 })
 
-
-
-export class CarsAdminComponent implements OnInit{    /*onInit - spustanie pri inicializaci prvku*/
+export class CarsAdminComponent implements OnInit{
   public cars:Array<Car>;
   public carId:number;
   private showCarWindow:boolean = false;
@@ -35,14 +31,9 @@ export class CarsAdminComponent implements OnInit{    /*onInit - spustanie pri i
   deleteCar(id:string){
     if(confirm("Naozaj chcete vymazať vozidlo?")) {
       this.carService.removeCar(id).subscribe(
-        data => {
-        },
-        error => {
-          alert(error)
-        },
-        () => {
-          this.getCars();
-        }
+        data => { },
+        error => { alert(error) },
+        () => { this.getCars(); }
       )
     }
   }

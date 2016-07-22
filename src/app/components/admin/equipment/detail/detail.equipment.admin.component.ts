@@ -1,10 +1,6 @@
-/**
- * Created by krosaci on 21.7.2016.
- */
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import {Equipment} from '../../../../models/equipment.admin.model';
 import {EquipmentService} from '../../../../services/equipment.service';
-import {Response} from "@angular/http";
 
 @Component({
   selector: "equipment",
@@ -15,6 +11,7 @@ import {Response} from "@angular/http";
 export class DetailEquipmentAdminComponent implements OnInit {
   public error;
   public success;
+  public formReset:boolean = true;
   public equipmentData:Equipment = new Equipment();
 
   @Input() equipmentId:number;
@@ -39,16 +36,14 @@ export class DetailEquipmentAdminComponent implements OnInit {
     let description = this.equipmentData.description;
     let amount = this.equipmentData.amount;
     this.equipmentService.addEquipment(JSON.stringify({description , amount})).subscribe(
-      data => {
-      },
-      error => {
-        this.error = error;
-      },
+      data => { },
+      error => { this.error = error; },
       () => {
         this.success = 'Vybavenie úspešne pridané.';
         this.equipmentData = new Equipment();
+        this.formReset = false;
+        setTimeout(() => this.formReset = true, 0);
         this.updateList.emit(true);
-        //this.closeWindow();
       }
     );
   }
@@ -58,15 +53,11 @@ export class DetailEquipmentAdminComponent implements OnInit {
     let description= this.equipmentData.description;
     let amount = this.equipmentData.amount;
     this.equipmentService.editEquipment(id, JSON.stringify({id, description, amount})).subscribe(
-      data => {
-      },
-      error => {
-        this.error = error;
-      },
+      data => { },
+      error => { this.error = error; },
       () => {
         this.success = 'Vybavenie úspešne upravené.';
         this.updateList.emit(true);
-        //this.closeWindow();
       }
     );
   }

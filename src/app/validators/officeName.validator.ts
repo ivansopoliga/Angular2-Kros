@@ -12,6 +12,7 @@ import {OfficeService} from '../services/office.service';
 export class OfficeNameValidator{
 
   private offices;
+  private initialCValue = null;
 
   constructor(private officeService:OfficeService) {
     this.officeService.getOffices().subscribe(
@@ -21,11 +22,19 @@ export class OfficeNameValidator{
   }
 
   validate(c:FormControl){
+    //nastavenia pre správne fungovanie editovania - nahratie prvej hodnoty do premennej - ak je nová miestnosť tak NULL
+    if(this.initialCValue == null && c.value != null)
+      this.initialCValue = c.value;
+    if(c.value == null)
+      this.initialCValue = null;
+
+
+    if(this.initialCValue == c.value)
+      return null;
     if(this.offices)
     {
-      for(var i = 0; i < this.offices.length; i++)
-      {
-        if(this.offices[i].name == c.value)
+      for (var i = 0; i < this.offices.length; i++) {
+        if (this.offices[i].name == c.value)
           return {validateOfficeName: true}
       }
     }
