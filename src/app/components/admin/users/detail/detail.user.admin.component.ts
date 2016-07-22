@@ -98,11 +98,10 @@ export class DetailUserAdminComponent implements OnInit {
   }
 
   setUserRoles(){
-    for(var i = 0; i < this.roles.length; i++){
-      if(i < this.userData.roles.length && this.userData.roles[i].roleId == this.roles[i].id)
-        this.userRoles[i] = true;
-      else this.userRoles[i] = false;
-    }
+    for(var i = 0; i < this.roles.length; i++)
+      this.userRoles[i] = false;
+    for(var i = 0; i < this.userData.roles.length; i++)
+      this.userRoles[this.userData.roles[i].roleId - 1] = true;
   }
 
   closeWindow(){
