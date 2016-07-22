@@ -24,10 +24,10 @@
 
 
     <!--SUBMIT BUTTON-->
-    <div *ngIf="!equipmentData.id">
+    <div *ngIf="!roleData.id">
       <button type="submit" id="add_button" class="btn btn-success  btn-block" (click)="newRole()" [disabled]="!roleForm.form.valid">Pridať rolu</button>
     </div>
-    <div *ngIf="equipmentData.id">
+    <div *ngIf="roleData.id">
       <button type="submit" id="edit_button" class="btn btn-success  btn-block" (click)="editRole()" [disabled]="!roleForm.form.valid">Editovať rolu</button>
     </div>
 

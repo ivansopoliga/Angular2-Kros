@@ -1,10 +1,10 @@
 import {Component, OnInit} from  '@angular/core';
 import {RolesService} from '../../../services/roles.service';
-import {Role} from '../../../models/role.model';
+import {Role} from '../../../models/role.admin.model';
 import {DetailRoleAdminComponent} from './detail/detail.role.admin.component';
 
 @Component({
-  templateUrl: 'app/components/admin/equipment/equipment.admin.component.html',
+  templateUrl: 'app/components/admin/roles/roles.admin.component.html',
   directives: [DetailRoleAdminComponent]
 })
 
@@ -37,12 +37,12 @@ export class RolesAdminComponent implements OnInit{
     }
   }
 
-  newEquimpent() {
+  newRole() {
     this.roleId = null;
     this.windowOpen();
   }
 
-  editEquimpent(id:number){
+  editRole(id:number){
     for(var i = 0; i < this.roles.length; i++){
       if(this.roles[i].id == id){
         this.roleId = this.roles[i].id;

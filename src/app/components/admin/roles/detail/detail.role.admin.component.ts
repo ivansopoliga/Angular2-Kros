@@ -4,7 +4,7 @@ import {RolesService} from '../../../../services/roles.service';
 
 @Component({
   selector: "equipment",
-  templateUrl: 'app/components/admin/equipment/detail/detail.role.admin.component.html',
+  templateUrl: 'app/components/admin/roles/detail/detail.role.admin.component.html',
   styleUrls: ['lib/css/modalWindow.css'],
 })
 
@@ -18,7 +18,7 @@ export class DetailRoleAdminComponent implements OnInit {
   @Output() windowClose = new EventEmitter<boolean>();
   @Output() updateList = new EventEmitter<boolean>();
 
-  constructor(private equipmentService:EquipmentService) { }
+  constructor(private rolesService:RolesService) { }
 
   ngOnInit(){
     if(this.roleId)
@@ -26,16 +26,16 @@ export class DetailRoleAdminComponent implements OnInit {
   }
 
   getRole(){
-    this.equipmentService.getEquipment(this.roleId).subscribe(
+    this.rolesService.getRole(this.roleId).subscribe(
       data => {this.roleData = data.json()},
       error => console.log(error)
     );
   }
 
-  newEquipment(){
+  newRole(){
     let name = this.roleData.name;
     let id = this.roleData.id;
-    this.equipmentService.addEquipment(JSON.stringify({name , id})).subscribe(
+    this.rolesService.addRole(JSON.stringify({name , id})).subscribe(
       data => { },
       error => { this.error = error; },
       () => {
@@ -48,10 +48,10 @@ export class DetailRoleAdminComponent implements OnInit {
     );
   }
 
-  editEquipment(){
+  editRole(){
     let name = this.roleData.name;
     let id = this.roleData.id;
-    this.equipmentService.editEquipment(id, JSON.stringify({id, name})).subscribe(
+    this.rolesService.editRole(id, JSON.stringify({id, name})).subscribe(
       data => { },
       error => { this.error = error; },
       () => {
