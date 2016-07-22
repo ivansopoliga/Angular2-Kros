@@ -36,6 +36,8 @@ export class DetailUserAdminComponent implements OnInit {
   ngOnInit() {
     if (this.userId) {
       this.getData();
+    } else {
+      this.getRoles();
     }
   }
 
@@ -87,13 +89,14 @@ export class DetailUserAdminComponent implements OnInit {
     let email = this.userData.email;
     let name = this.userData.name;
     let surname = this.userData.surname;
+    let PhotoBase64 = this.userData.photoBase64;
     let roles = JSON.parse("[]");
     for (var i = 0; i < this.checkedRoles.length; i++) {
       if (this.checkedRoles[i]) {
         roles.push({"roleId": this.allRoles[i].id});
       }
     }
-    this.userService.editUser(id, JSON.stringify({id, email, name, surname, roles})).subscribe(
+    this.userService.editUser(id, JSON.stringify({id, email, name, surname, roles, PhotoBase64})).subscribe(
       data => {
       },
       error => {
@@ -118,11 +121,13 @@ export class DetailUserAdminComponent implements OnInit {
   }
 
   setUserRoles() {
-    for (var i = 0; i < this.allRoles.length; i++) {
-      this.checkedRoles[i] = false;
-      for (var j = 0; j < this.userData.roles.length; j++) {
-        if (this.allRoles[i].id == this.userData.roles[j].roleId) {
-          this.checkedRoles[i] = true;
+    if(this.userId) {
+      for (var i = 0; i < this.allRoles.length; i++) {
+        this.checkedRoles[i] = false;
+        for (var j = 0; j < this.userData.roles.length; j++) {
+          if (this.allRoles[i].id == this.userData.roles[j].roleId) {
+            this.checkedRoles[i] = true;
+          }
         }
       }
     }
