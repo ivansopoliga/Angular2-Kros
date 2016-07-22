@@ -47,10 +47,12 @@ declare var System: any;
 
 // Apply the CLI SystemJS configuration.
 System.config({
+  defaultJSExtensions: true,
   map: {
     '@angular': 'vendor/@angular',
     'rxjs': 'vendor/rxjs',
     'main': 'main.js',
+    'ng2-cookies': 'lib/js/ng2-cookies',
     moment: 'node_modules/moment/moment.js'
   },
   packages: cliSystemConfigPackages
