@@ -20,8 +20,8 @@ import {Role} from "../../../../models/role.admin.model";
 export class DetailUserAdminComponent implements OnInit {
   public error:string;
   public success:string;
-  public allRoles:Array<Role>;
   public formReset:boolean = true;
+  public allRoles:Array<Role>;
   public checkedRoles:Array<boolean> = new Array();
   public userData:User = new User();
 
@@ -29,8 +29,7 @@ export class DetailUserAdminComponent implements OnInit {
   @Output() windowClose = new EventEmitter<boolean>();
   @Output() updateList = new EventEmitter<boolean>();
 
-  constructor(private userService:UserService) {
-  }
+  constructor(private userService:UserService) { }
 
 
   ngOnInit() {
@@ -38,6 +37,7 @@ export class DetailUserAdminComponent implements OnInit {
       this.getData();
     } else {
       this.getRoles();
+      console.log(this.userData);
     }
   }
 
@@ -52,26 +52,21 @@ export class DetailUserAdminComponent implements OnInit {
 
 
   newUser() {
+    console.log(this.allRoles);
+    console.log(this.checkedRoles);
     let email = this.userData.email;
     let name = this.userData.name;
     let surname = this.userData.surname;
     let roles = JSON.parse("[]");
-    for (var i = 0; i < this.checkedRoles.length; i++) {
+    for (var i = 0; i < this.allRoles.length; i++) {
       if (this.checkedRoles[i]) {
         roles.push({"roleId": this.allRoles[i].id});
       }
     }
-    this.userService.addUser(JSON.stringify({
-      email,
-      name,
-      surname,
-      roles
-    })).subscribe(
-      data => {
-      },
-      error => {
-        this.error = error;
-      },
+    console.log(roles);
+    this.userService.addUser(JSON.stringify({email, name, surname, roles})).subscribe(
+      data => { },
+      error => { this.error = error; },
       () => {
         this.success = 'Užívateľ úspešne vytvorený.';
         this.userData = new User();
