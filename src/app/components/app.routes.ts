@@ -14,10 +14,9 @@ import {RolesAdminComponent} from './admin/roles/roles.admin.component';
 
 
 const routes: RouterConfig = [
-  { path: '', redirectTo: 'home', terminal: true },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: '', component: HomeComponent, canActivate: [AuthGuard], terminal: true },
   { path: 'login', component: LoginComponent },
-  { path: 'admin', component: AdminComponent, canActivate: [AdminGuard],
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard,AdminGuard],
     children: [
       {
         path: '',

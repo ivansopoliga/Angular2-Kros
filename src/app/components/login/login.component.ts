@@ -25,7 +25,7 @@ export class LoginComponent {
       .subscribe(
       response => {
         this.response = response;
-        this.router.navigate(['/home']);
+        this.router.navigate(['/']);
         if(this.response._body==''){
           Cookie.set('KrosbookAuthentification','OK');
         }
