@@ -12,9 +12,23 @@ import {CarsAdminComponent} from "./admin/cars/cars.admin.component";
 import {EquipmentAdminComponent} from "./admin/equipment/equipment.admin.component";
 import {RolesAdminComponent} from './admin/roles/roles.admin.component';
 
+import {ReservationsComponent} from './home/reservations/reservations.component';
+
 
 const routes: RouterConfig = [
-  { path: '', component: HomeComponent, canActivate: [AuthGuard], terminal: true },
+  { path: '', redirectTo: 'home', terminal: true},
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        component: ReservationsComponent
+      },
+      {
+        path: 'reservations/:type',
+        component: ReservationsComponent
+      }
+    ]
+  },
   { path: 'login', component: LoginComponent },
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard,AdminGuard],
     children: [

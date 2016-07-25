@@ -1,0 +1,32 @@
+<h4 class="col-md-10">{{ data.name }}</h4>
+
+<div class="col-md-2 text-right">
+  <span class="glyphicon glyphicon-triangle-left" (click)="moveBack()"></span>
+  <span class="glyphicon glyphicon-triangle-right" (click)="moveFor()"></span>
+</div>
+
+<div class="col-md-12">
+
+  <table class="table table-responsive table-bordered">
+    <thead>
+    <tr>
+      <th></th>
+      <th *ngFor="let day of days">
+        {{ day }}
+      </th>
+    </tr>
+    </thead>
+
+    <tr *ngFor="let row of rows">
+      <td>{{ row.time }}</td>
+      <td (mousedown)="reserve($event.target)">{{ row.reservation }}</td>
+      <td (mousedown)="reserve($event.target)">{{ row.reservation }}</td>
+      <td (mousedown)="reserve($event.target)">{{ row.reservation }}</td>
+      <td (mousedown)="reserve($event.target)">{{ row.reservation }}</td>
+      <td (mousedown)="reserve($event.target)">{{ row.reservation }}</td>
+    </tr>
+
+  </table>
+
+</div>
+

@@ -15,6 +15,7 @@ import {Response} from "@angular/http";
 
 export class HomeComponent implements OnInit{
   public isViewed:boolean = false;
+  public openReservations:boolean = true;
   response:any;
   users: any;
   public foods;
@@ -59,5 +60,9 @@ export class HomeComponent implements OnInit{
 
   }
 
-
+  toggleReservations(){
+    this.openReservations = this.openReservations ? false : true;
   }
+
+
+}
