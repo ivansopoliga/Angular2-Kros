@@ -2,10 +2,7 @@
  * Created by Tibor Poštek on 18.07.2016.
  */
 import {Component, OnInit, Input, Output, EventEmitter} from  '@angular/core';
-import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
 import {UserService} from '../../../../services/user.service';
-import {Response} from "@angular/http";
-import 'rxjs/add/operator/map';
 import {User} from "../../../../models/user.admin.model";
 import {EmailValidator} from '../../../../validators/email.validator';
 import {Role} from "../../../../models/role.admin.model";
@@ -14,7 +11,7 @@ import {Role} from "../../../../models/role.admin.model";
   selector: 'user',
   templateUrl: 'app/components/admin/users/detail/detail.user.admin.component.html',
   styleUrls: ['lib/css/modalWindow.css'],
-  directives: [ EmailValidator]
+  directives: [EmailValidator]
 })
 
 export class DetailUserAdminComponent implements OnInit {
