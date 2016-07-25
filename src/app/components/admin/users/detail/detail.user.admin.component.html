@@ -41,9 +41,9 @@
     <!--ROLE POUZÍVATEĽA-->
     <div class="form-group">
       <label>Role používateľa: </label>
-      <div class="checkbox" *ngFor="let role of allRoles">
+      <div class="checkbox" *ngFor="let role of allRoles; let i = index">
         <label>
-          <input type="checkbox" name="role" [checked]="checkedRoles[role.id -1]" (change)="checkedRoles[role.id -1] = $event.target.checked">{{role.name}}
+          <input type="checkbox" name="role" [checked]="checkedRoles[i]" (change)="checkedRoles[i] = $event.target.checked">{{role.name}}
         </label>
       </div>
     </div>

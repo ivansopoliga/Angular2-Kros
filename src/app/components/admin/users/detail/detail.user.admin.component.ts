@@ -37,7 +37,6 @@ export class DetailUserAdminComponent implements OnInit {
       this.getData();
     } else {
       this.getRoles();
-      console.log(this.userData);
     }
   }
 
@@ -52,8 +51,6 @@ export class DetailUserAdminComponent implements OnInit {
 
 
   newUser() {
-    console.log(this.allRoles);
-    console.log(this.checkedRoles);
     let email = this.userData.email;
     let name = this.userData.name;
     let surname = this.userData.surname;
@@ -63,7 +60,6 @@ export class DetailUserAdminComponent implements OnInit {
         roles.push({"roleId": this.allRoles[i].id});
       }
     }
-    console.log(roles);
     this.userService.addUser(JSON.stringify({email, name, surname, roles})).subscribe(
       data => { },
       error => { this.error = error; },
@@ -86,7 +82,7 @@ export class DetailUserAdminComponent implements OnInit {
     let surname = this.userData.surname;
     let PhotoBase64 = this.userData.photoBase64;
     let roles = JSON.parse("[]");
-    for (var i = 0; i < this.checkedRoles.length; i++) {
+    for (var i = 0; i < this.allRoles.length; i++) {
       if (this.checkedRoles[i]) {
         roles.push({"roleId": this.allRoles[i].id});
       }
