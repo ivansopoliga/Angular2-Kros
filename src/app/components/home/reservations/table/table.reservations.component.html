@@ -7,7 +7,7 @@
 
 <div class="col-md-12">
 
-  <table class="table table-responsive table-bordered">
+  <table id="reservationTable" class="table table-responsive table-bordered">
     <thead>
     <tr>
       <th></th>
@@ -17,13 +17,11 @@
     </tr>
     </thead>
 
-    <tr *ngFor="let row of rows">
-      <td>{{ row.time }}</td>
-      <td (mousedown)="reserve($event.target)">{{ row.reservation }}</td>
-      <td (mousedown)="reserve($event.target)">{{ row.reservation }}</td>
-      <td (mousedown)="reserve($event.target)">{{ row.reservation }}</td>
-      <td (mousedown)="reserve($event.target)">{{ row.reservation }}</td>
-      <td (mousedown)="reserve($event.target)">{{ row.reservation }}</td>
+    <tr *ngFor="let time of times; let i = index">
+      <td> {{ time.time }} </td>
+      <td *ngFor="let cell of tableData[time.time]" [ngClass]="{occupied: cell, long: cell.long, clickable: true}">
+        <p>{{ cell.userName }}</p>
+      </td>
     </tr>
 
   </table>

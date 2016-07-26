@@ -1,3 +1,5 @@
 <h3>Rezervácia - {{ name }}</h3>
 
-<reservation-table *ngFor="let row of data" [data]="row"></reservation-table>
+<div class="alert alert-warning col-md-12" *ngIf="!data">Neboli nájdené žiadne {{ name }}.</div>
+
+<reservation-table *ngFor="let row of data" [data]="row" [reservationType]="reservationType"></reservation-table>
