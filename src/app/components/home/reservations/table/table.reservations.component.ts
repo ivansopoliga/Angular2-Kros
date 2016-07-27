@@ -1,16 +1,22 @@
-import { Component, Input,OnInit,ElementRef} from '@angular/core';
+import {Component, Input, OnInit, ElementRef, Inject, AfterViewInit} from '@angular/core';
 import * as moment from 'moment';
 import {User} from '../../../../models/user.admin.model';
 import {UserService} from '../../../../services/user.service';
 import {OfficeService} from '../../../../services/office.service';
 import {CarService} from '../../../../services/car.service';
+import {CellPipe} from "./CellPipe";
+import {forEach} from "@angular/router/esm/src/utils/collection";
 
 declare var jQuery:any;
 
 @Component({
   selector: 'reservation-table',
   templateUrl: 'app/components/home/reservations/table/table.reservations.component.html',
-  styles: ['.glyphicon { margin-top: 10px; font-size: 16px; margin-bottom: 7px; cursor: pointer;} th {text-align: center;} .occupied {background-color: #0088a8; border-bottom: none; color: white;} .long{border-top: 1px #0088a8 solid;} small{font-size: 75%} p{margin-bottom: 0}']
+  styles: ['.glyphicon { margin-top: 10px; font-size: 16px; margin-bottom: 7px; cursor: pointer;} ' +
+  'table td.highlighted {background-color:#999; }' +
+  'th {text-align: center; background-color: #F2F2F2;} .occupied {background-color: #0088a8; border-bottom: none; color: white;} ' +
+  '.long{border-top: 1px #0088a8 solid;} small{font-size: 75%} p{margin-bottom: 0}'],
+ // pipes: [CellPipe]
 })
 
 export class TableReservationComponent implements OnInit{
@@ -25,11 +31,10 @@ export class TableReservationComponent implements OnInit{
   public usersList:Array<User>;
 
 
-
-  constructor(private userService:UserService, private officeService:OfficeService, private carService:CarService) { }
+  constructor(private userService:UserService, private officeService:OfficeService, private carService:CarService) {
+  }
 
   ngOnInit() {
-    moment.locale('sk');
     this.updateTime();
     this.userService.getUsers().subscribe(
       data => {this.usersList = data.json()},
@@ -37,6 +42,80 @@ export class TableReservationComponent implements OnInit{
       () => { this.updateWeek() }
     );
   }
+
+  fillTable() {
+
+    console.log(this.tableData);
+    jQuery("#reservationTable #records").append("<tr>");
+    for(var i=0; i<this.times.length; i++) {
+      jQuery("#reservationTable #records").append("<td>"+this.times[i].time+"</td>");
+
+        for(let cell of this.tableData[this.times[i].time]){
+          if(cell.long==null ){
+            jQuery("#reservationTable #records").append("<td></td>");
+          }else {
+            if(cell.reservationName==null ) {
+              jQuery("#reservationTable #records").append('<td  bgcolor="#FF0000" style="{border: 0;}"></td>');
+            } else{
+              jQuery("#reservationTable #records").append('<td  bgcolor="#FF0000" style="{border: 0;}">' + cell.reservationName + '</td>');
+            }
+          }
+
+        }
+
+
+
+        //*ngFor="let cell of tableData[time.time]"
+        //      <b>{{ cell.reservationName }}</b>
+        //    <p>{{ cell.userName }}</p>
+        //    </td>
+
+
+      jQuery("#reservationTable #records").append("</tr><tr>");
+    }
+
+    //  <td *ngFor="let cell of (tableData[time.time])" [ngClass]="{occupied: cell, long: cell.long, clickable: true}">
+    //  <b>{{ cell.reservationName }}</b>
+    //<p>{{ cell.userName }}</p>
+   // </td>
+
+   //</tr>
+
+
+
+
+
+    jQuery('td').on('click', function(e) {
+      console.log('clicked on td');
+      // $(this).children().toggle();
+      // e.stopPropagation();
+    });
+
+    jQuery(function () {
+      var isMouseDown = false;
+      jQuery("#reservationTable td").mousedown(function () {
+        isMouseDown = true;
+        jQuery(this).css("background-color", "yellow");
+      })
+        .mouseover(function () {
+          if (isMouseDown) {
+            jQuery(this).css("background-color", "yellow");
+          }
+        })
+
+        .mouseup(function () {
+          isMouseDown = false;
+        });
+    });
+
+  }
+
+  reserve(){
+
+  }
+
+
+
 
   moveFor(){
     this.week += 1;
@@ -104,10 +183,11 @@ export class TableReservationComponent implements OnInit{
 
       while (time < endTime) {
         if (time == moment(record.dateTime, "YYYY-MM-DD HH:mm:ss").format("HH:mm"))
-          this.tableData[time][day] = JSON.parse('{"userName": "' + user.name + ' ' + user.surname + '", "long": 0}');
+          this.tableData[time][day] = JSON.parse('{"userName": "' + user.name + ' ' + user.surname + '", "long": 0, "reservationName":"'+record.name+'"}');
         else this.tableData[time][day] = JSON.parse('{"userName": "", "long": 1}');
         time = moment(time, 'HH:mm').add(30, 'minutes').format('HH:mm');
       }
     }
+    this.fillTable();
   }
 }
