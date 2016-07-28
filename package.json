@@ -23,6 +23,7 @@
     "@angular/router": "3.0.0-alpha.8",
     "bootstrap": "^3.3.6",
     "es6-shim": "0.35.1",
+    "moment": "^2.14.1",
     "ng2-cookies": "^0.1.9",
     "ng2-file-upload": "^1.0.3",
     "ng2-table": "^1.0.2",

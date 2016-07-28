@@ -17,6 +17,7 @@ import {PasswordComponent} from "./profile/password/password.component";
 
 export class HomeComponent implements OnInit{
   public isViewed:boolean = false;
+  public openReservations:boolean = true;
   response:any;
   users: any;
 
@@ -61,5 +62,9 @@ export class HomeComponent implements OnInit{
 
   }
 
-
+  toggleReservations(){
+    this.openReservations = this.openReservations ? false : true;
   }
+
+
+}

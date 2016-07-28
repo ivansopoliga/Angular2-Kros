@@ -23,6 +23,12 @@ export class OfficeService {
     return this.http.get('http://localhost:50909/api/rooms/'+id, {headers});
   }
 
+  public getOfficeReservations(id:number, from:any, to:any){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:50909/api/reservations/rooms/byroom/'+id, JSON.stringify({from, to}), {headers});
+  }
+
   public addOffice(office:string) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -44,6 +50,8 @@ export class OfficeService {
     headers.append('Content-Type', 'application/json');
     return this.http.get('http://localhost:50909/api/equipment/', {headers});
   }
+
+
 
 
 

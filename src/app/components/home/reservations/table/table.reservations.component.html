@@ -1,0 +1,38 @@
+<h4 class="col-md-10">{{ data.name }}</h4>
+
+<div class="col-md-2 text-right">
+  <span class="glyphicon glyphicon-triangle-left" (click)="moveBack()"></span>
+  <span class="glyphicon glyphicon-triangle-right" (click)="moveFor()"></span>
+</div>
+
+<div class="col-md-12">
+
+
+  <table cellpadding="0" cellspacing="0" id="reservationTable" class="table table-responsive table-hover">
+    <thead>
+    <tr>
+      <th></th>
+      <th *ngFor="let day of days">
+        {{ day }}
+      </th>
+    </tr>
+    </thead>
+
+
+    <tbody id="records">
+   <!-- <tr *ngFor="let time of times; let i = index" id="{{i}}">
+      <td> {{ time.time }} </td>
+
+    <td *ngFor="let cell of (tableData[time.time])" [ngClass]="{occupied: cell, long: cell.long, clickable: true}">
+        <b>{{ cell.reservationName }}</b>
+        <p>{{ cell.userName }}</p>
+      </td>
+-->
+
+    </tbody>
+
+
+  </table>
+
+</div>
+

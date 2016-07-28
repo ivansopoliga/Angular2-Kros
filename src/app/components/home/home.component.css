@@ -57,16 +57,16 @@ div {
 .menu_icon {
   padding: 0px 10px 0px 0px; }
 
-#left_menu a {
+#left_menu a, #left_menu div {
   padding-left: 0;
   margin-bottom: 10px;
   font-size: 1.1em;
   color: #4d4d4d; }
-  #left_menu a:link {
+  #left_menu a:link, #left_menu div:link {
     text-decoration: none; }
-  #left_menu a:hover {
+  #left_menu a:hover, #left_menu div:hover {
     text-decoration: none; }
-  #left_menu a .active {
+  #left_menu a .active, #left_menu div .active {
     border-bottom: 1px solid blue; }
 
 #right_menu {
