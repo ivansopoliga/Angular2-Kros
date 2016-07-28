@@ -23,7 +23,7 @@ export class UserService {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     Cookie.delete('KrosbookAuthentification');
-    return this.http.get('http://localhost:50909/api/authentification/logout', { headers  } );
+    //return this.http.get('http://localhost:50909/api/authentification/logout', { headers  } );
   }
 
   public isLoggedIn(){

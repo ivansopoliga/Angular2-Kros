@@ -3,21 +3,23 @@ import {UserService} from '../../services/user.service';
 import {Router, ROUTER_DIRECTIVES, CanActivate} from '@angular/router';
 import {Cookie} from 'ng2-cookies/ng2-cookies';
 import {UserInfoComponent} from './userInfo/userInfo.component';
+import {ProfileComponent} from '../home/profile/profile.component'
 
 import {Response} from "@angular/http";
+import {PasswordComponent} from "./profile/password/password.component";
 
 @Component({
   selector: 'home',
   templateUrl: 'app/components/home/home.component.html',
   styleUrls: ['app/components/home/home.component.css'],
-  directives: [ROUTER_DIRECTIVES, UserInfoComponent]
+  directives: [ROUTER_DIRECTIVES, UserInfoComponent,ProfileComponent]
 })
 
 export class HomeComponent implements OnInit{
   public isViewed:boolean = false;
   response:any;
   users: any;
-  public foods;
+
 
   result:Array<Object>;
 
