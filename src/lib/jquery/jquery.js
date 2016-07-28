@@ -19,7 +19,7 @@
 // Support: Firefox 18+
 //"use strict";
 var
-	// A central reference to the root jQuery(document)
+	// A central reference to the root $(document)
 	rootjQuery,
 
 	// The deferred used on DOM ready
@@ -34,7 +34,7 @@ var
 	document = window.document,
 	docElem = document.documentElement,
 
-	// Map over jQuery in case of overwrite
+	// Map over $ in case of overwrite
 	_jQuery = window.jQuery,
 
 	// Map over the $ in case of overwrite
@@ -57,9 +57,9 @@ var
 	core_hasOwn = class2type.hasOwnProperty,
 	core_trim = core_version.trim,
 
-	// Define a local copy of jQuery
+	// Define a local copy of $
 	jQuery = function( selector, context ) {
-		// The jQuery object is actually just the init constructor 'enhanced'
+		// The $ object is actually just the init constructor 'enhanced'
 		return new jQuery.fn.init( selector, context, rootjQuery );
 	},
 
@@ -81,7 +81,7 @@ var
 	rmsPrefix = /^-ms-/,
 	rdashAlpha = /-([\da-z])/gi,
 
-	// Used by jQuery.camelCase as callback to replace()
+	// Used by $.camelCase as callback to replace()
 	fcamelCase = function( all, letter ) {
 		return letter.toUpperCase();
 	},
@@ -94,7 +94,7 @@ var
 	};
 
 jQuery.fn = jQuery.prototype = {
-	// The current version of jQuery being used
+	// The current version of $ being used
 	jquery: core_version,
 
 	constructor: jQuery,
@@ -153,7 +153,7 @@ jQuery.fn = jQuery.prototype = {
 					// Check parentNode to catch when Blackberry 4.6 returns
 					// nodes that are no longer in the document #6963
 					if ( elem && elem.parentNode ) {
-						// Inject the element directly into the jQuery object
+						// Inject the element directly into the $ object
 						this.length = 1;
 						this[0] = elem;
 					}
@@ -196,7 +196,7 @@ jQuery.fn = jQuery.prototype = {
 	// Start with an empty selector
 	selector: "",
 
-	// The default length of a jQuery object is 0
+	// The default length of a $ object is 0
 	length: 0,
 
 	toArray: function() {
@@ -219,7 +219,7 @@ jQuery.fn = jQuery.prototype = {
 	// (returning the new matched element set)
 	pushStack: function( elems ) {
 
-		// Build a new jQuery matched element set
+		// Build a new $ matched element set
 		var ret = jQuery.merge( this.constructor(), elems );
 
 		// Add the old object onto the stack (as a reference)
@@ -273,13 +273,13 @@ jQuery.fn = jQuery.prototype = {
 	},
 
 	// For internal use only.
-	// Behaves like an Array's method, not like a jQuery method.
+	// Behaves like an Array's method, not like a $ method.
 	push: core_push,
 	sort: [].sort,
 	splice: [].splice
 };
 
-// Give the init function the jQuery prototype for later instantiation
+// Give the init function the $ prototype for later instantiation
 jQuery.fn.init.prototype = jQuery.fn;
 
 jQuery.extend = jQuery.fn.extend = function() {
@@ -302,7 +302,7 @@ jQuery.extend = jQuery.fn.extend = function() {
 		target = {};
 	}
 
-	// extend jQuery itself if only one argument is passed
+	// extend $ itself if only one argument is passed
 	if ( length === i ) {
 		target = this;
 		--i;
@@ -347,7 +347,7 @@ jQuery.extend = jQuery.fn.extend = function() {
 };
 
 jQuery.extend({
-	// Unique for each copy of jQuery on the page
+	// Unique for each copy of $ on the page
 	expando: "jQuery" + ( core_version + Math.random() ).replace( /\D/g, "" ),
 
 	noConflict: function( deep ) {
@@ -356,7 +356,7 @@ jQuery.extend({
 		}
 
 		if ( deep && window.jQuery === jQuery ) {
-			window.jQuery = _jQuery;
+			window.$ = _jQuery;
 		}
 
 		return jQuery;
@@ -862,13 +862,13 @@ function isArraylike( obj ) {
 		typeof length === "number" && length > 0 && ( length - 1 ) in obj );
 }
 
-// All jQuery objects should point back to these
+// All $ objects should point back to these
 rootjQuery = jQuery(document);
 /*!
  * Sizzle CSS Selector Engine v1.9.4-pre
  * http://sizzlejs.com/
  *
- * Copyright 2013 jQuery Foundation, Inc. and other contributors
+ * Copyright 2013 $ Foundation, Inc. and other contributors
  * Released under the MIT license
  * http://jquery.org/license
  *
@@ -1374,7 +1374,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 	// Support: IE>8
 	// If iframe document is assigned to "document" variable and if iframe has been reloaded,
-	// IE will throw "permission denied" error when accessing "document" variable, see jQuery #13936
+	// IE will throw "permission denied" error when accessing "document" variable, see $ #13936
 	if ( parent && parent.frameElement ) {
 		parent.attachEvent( "onbeforeunload", function() {
 			setDocument();
@@ -1771,7 +1771,7 @@ Sizzle.attr = function( elem, name ) {
 	}
 
 	var fn = Expr.attrHandle[ name.toLowerCase() ],
-		// Don't get fooled by Object.prototype properties (jQuery #13807)
+		// Don't get fooled by Object.prototype properties ($ #13807)
 		val = ( fn && hasOwn.call( Expr.attrHandle, name.toLowerCase() ) ?
 			fn( elem, name, !documentIsHTML ) :
 			undefined );
@@ -3513,7 +3513,7 @@ Data.prototype = {
 	}
 };
 
-// These may be used throughout the jQuery core codebase
+// These may be used throughout the $ core codebase
 data_user = new Data();
 data_priv = new Data();
 
@@ -3584,9 +3584,9 @@ jQuery.fn.extend({
 			var data,
 				camelKey = jQuery.camelCase( key );
 
-			// The calling jQuery object (element matches) is not empty
+			// The calling $ object (element matches) is not empty
 			// (and therefore has an element appears at this[ 0 ]) and the
-			// `value` parameter was not undefined. An empty jQuery object
+			// `value` parameter was not undefined. An empty $ object
 			// will result in `undefined` for elem = this[ 0 ] which will
 			// throw an exception if an attempt to read a data cache is made.
 			if ( elem && value === undefined ) {
@@ -4370,7 +4370,7 @@ jQuery.event = {
 		}
 		if ( !(eventHandle = elemData.handle) ) {
 			eventHandle = elemData.handle = function( e ) {
-				// Discard the second event of a jQuery.event.trigger() and
+				// Discard the second event of a $.event.trigger() and
 				// when an event is called after a page has unloaded
 				return typeof jQuery !== core_strundefined && (!e || jQuery.event.triggered !== e.type) ?
 					jQuery.event.dispatch.apply( eventHandle.elem, arguments ) :
@@ -4548,12 +4548,12 @@ jQuery.event = {
 		}
 		ontype = type.indexOf(":") < 0 && "on" + type;
 
-		// Caller can pass in a jQuery.Event object, Object, or just an event type string
+		// Caller can pass in a $.Event object, Object, or just an event type string
 		event = event[ jQuery.expando ] ?
 			event :
 			new jQuery.Event( type, typeof event === "object" && event );
 
-		// Trigger bitmask: & 1 for native handlers; & 2 for jQuery (always true)
+		// Trigger bitmask: & 1 for native handlers; & 2 for $ (always true)
 		event.isTrigger = onlyHandlers ? 2 : 3;
 		event.namespace = namespaces.join(".");
 		event.namespace_re = event.namespace ?
@@ -4604,7 +4604,7 @@ jQuery.event = {
 				bubbleType :
 				special.bindType || type;
 
-			// jQuery handler
+			// $ handler
 			handle = ( data_priv.get( cur, "events" ) || {} )[ event.type ] && data_priv.get( cur, "handle" );
 			if ( handle ) {
 				handle.apply( cur, data );
@@ -4652,7 +4652,7 @@ jQuery.event = {
 
 	dispatch: function( event ) {
 
-		// Make a writable jQuery.Event from the native event object
+		// Make a writable $.Event from the native event object
 		event = jQuery.event.fix( event );
 
 		var i, j, ret, matched, handleObj,
@@ -4661,7 +4661,7 @@ jQuery.event = {
 			handlers = ( data_priv.get( this, "events" ) || {} )[ event.type ] || [],
 			special = jQuery.event.special[ event.type ] || {};
 
-		// Use the fix-ed jQuery.Event rather than the (read-only) native event
+		// Use the fix-ed $.Event rather than the (read-only) native event
 		args[0] = event;
 		event.delegateTarget = this;
 
@@ -4955,7 +4955,7 @@ jQuery.Event = function( src, props ) {
 	this[ jQuery.expando ] = true;
 };
 
-// jQuery.Event is based on DOM3 Events as specified by the ECMAScript Language Binding
+// $.Event is based on DOM3 Events as specified by the ECMAScript Language Binding
 // http://www.w3.org/TR/2003/WD-DOM-Level-3-Events-20030331/ecma-script-binding.html
 jQuery.Event.prototype = {
 	isDefaultPrevented: returnFalse,
@@ -5101,7 +5101,7 @@ jQuery.fn.extend({
 	off: function( types, selector, fn ) {
 		var handleObj, type;
 		if ( types && types.preventDefault && types.handleObj ) {
-			// ( event )  dispatched jQuery.Event
+			// ( event )  dispatched $.Event
 			handleObj = types.handleObj;
 			jQuery( types.delegateTarget ).off(
 				handleObj.namespace ? handleObj.origType + "." + handleObj.namespace : handleObj.origType,
@@ -5260,7 +5260,7 @@ jQuery.fn.extend({
 		// Locate the position of the desired element
 		return core_indexOf.call( this,
 
-			// If it receives a jQuery object, the first element is used
+			// If it receives a $ object, the first element is used
 			elem.jquery ? elem[ 0 ] : elem
 		);
 	},
@@ -5666,7 +5666,7 @@ jQuery.fn.extend({
 						// Keep references to cloned scripts for later restoration
 						if ( hasScripts ) {
 							// Support: QtWebKit
-							// jQuery.merge because core_push.apply(_, arraylike) throws
+							// $.merge because core_push.apply(_, arraylike) throws
 							jQuery.merge( scripts, getAll( node, "script" ) );
 						}
 					}
@@ -5787,7 +5787,7 @@ jQuery.extend({
 				// Add nodes directly
 				if ( jQuery.type( elem ) === "object" ) {
 					// Support: QtWebKit
-					// jQuery.merge because core_push.apply(_, arraylike) throws
+					// $.merge because core_push.apply(_, arraylike) throws
 					jQuery.merge( nodes, elem.nodeType ? [ elem ] : elem );
 
 				// Convert non-html into a text node
@@ -5810,7 +5810,7 @@ jQuery.extend({
 					}
 
 					// Support: QtWebKit
-					// jQuery.merge because core_push.apply(_, arraylike) throws
+					// $.merge because core_push.apply(_, arraylike) throws
 					jQuery.merge( nodes, tmp.childNodes );
 
 					// Remember the top-level container
@@ -5875,7 +5875,7 @@ jQuery.extend({
 							if ( special[ type ] ) {
 								jQuery.event.remove( elem, type );
 
-							// This is a shortcut to avoid jQuery.event.remove's overhead
+							// This is a shortcut to avoid $.event.remove's overhead
 							} else {
 								jQuery.removeEvent( elem, type, data.handle );
 							}
@@ -6114,7 +6114,7 @@ function vendorPropName( style, name ) {
 }
 
 function isHidden( elem, el ) {
-	// isHidden might be called from jQuery#filter function;
+	// isHidden might be called from $#filter function;
 	// in that case, element will be second argument
 	elem = el || elem;
 	return jQuery.css( elem, "display" ) === "none" || !jQuery.contains( elem.ownerDocument, elem );
@@ -6679,7 +6679,7 @@ jQuery.param = function( a, traditional ) {
 			s[ s.length ] = encodeURIComponent( key ) + "=" + encodeURIComponent( value );
 		};
 
-	// Set traditional to true for jQuery <= 1.3.2 behavior.
+	// Set traditional to true for $ <= 1.3.2 behavior.
 	if ( traditional === undefined ) {
 		traditional = jQuery.ajaxSettings && jQuery.ajaxSettings.traditional;
 	}
@@ -6818,7 +6818,7 @@ try {
 // Segment location into parts
 ajaxLocParts = rurl.exec( ajaxLocation.toLowerCase() ) || [];
 
-// Base "constructor" for jQuery.ajaxPrefilter and jQuery.ajaxTransport
+// Base "constructor" for $.ajaxPrefilter and $.ajaxTransport
 function addToPrefiltersOrTransports( structure ) {
 
 	// dataTypeExpression is optional and defaults to "*"
@@ -7080,7 +7080,7 @@ jQuery.extend({
 			s = jQuery.ajaxSetup( {}, options ),
 			// Callbacks context
 			callbackContext = s.context || s,
-			// Context for global events is callbackContext if it is a DOM node or jQuery collection
+			// Context for global events is callbackContext if it is a DOM node or $ collection
 			globalEventContext = s.context && ( callbackContext.nodeType || callbackContext.jquery ) ?
 				jQuery( callbackContext ) :
 				jQuery.event,
@@ -7854,7 +7854,7 @@ jQuery.ajaxTransport(function( options ) {
 				callback = xhrCallbacks[( id = xhrId++ )] = callback("abort");
 				// Do send the request
 				// This may raise an exception which is actually
-				// handled in jQuery.ajax (so no try/catch here)
+				// handled in $.ajax (so no try/catch here)
 				xhr.send( options.hasContent && options.data || null );
 			},
 			abort: function() {
@@ -7884,7 +7884,7 @@ var fxNow, timerId,
 				maxIterations = 20;
 
 			if ( start && start[ 3 ] !== unit ) {
-				// Trust units reported by jQuery.css
+				// Trust units reported by $.css
 				unit = unit || start[ 3 ];
 
 				// Make sure we update the tween properties later on
@@ -8815,28 +8815,28 @@ jQuery.fn.andSelf = jQuery.fn.addBack;
 
 // })();
 if ( typeof module === "object" && module && typeof module.exports === "object" ) {
-	// Expose jQuery as module.exports in loaders that implement the Node
+	// Expose $ as module.exports in loaders that implement the Node
 	// module pattern (including browserify). Do not create the global, since
 	// the user will be storing it themselves locally, and globals are frowned
 	// upon in the Node module world.
 	module.exports = jQuery;
 } else {
-	// Register as a named AMD module, since jQuery can be concatenated with other
+	// Register as a named AMD module, since $ can be concatenated with other
 	// files that may use define, but not via a proper concatenation script that
 	// understands anonymous AMD modules. A named AMD is safest and most robust
 	// way to register. Lowercase jquery is used because AMD module names are
-	// derived from file names, and jQuery is normally delivered in a lowercase
+	// derived from file names, and $ is normally delivered in a lowercase
 	// file name. Do this after creating the global so that if an AMD module wants
-	// to call noConflict to hide this version of jQuery, it will work.
+	// to call noConflict to hide this version of $, it will work.
 	if ( typeof define === "function" && define.amd ) {
 		define( "jquery", [], function () { return jQuery; } );
 	}
 }
 
 // If there is a window object, that at least has a document property,
-// define jQuery and $ identifiers
+// define $ and $ identifiers
 if ( typeof window === "object" && typeof window.document === "object" ) {
-	window.jQuery = window.$ = jQuery;
+	window.$ = window.$ = jQuery;
 }
 
 })( window );
