@@ -46,7 +46,7 @@ export class TableReservationComponent implements OnInit{
   fillTable() {
 
     console.log(this.tableData);
-    jQuery("#reservationTable #records").append("<tr>");
+    jQuery("#reservationTable #records").html("<tr>");
     for(var i=0; i<this.times.length; i++) {
       jQuery("#reservationTable #records").append("<td>"+this.times[i].time+"</td>");
 
@@ -55,9 +55,9 @@ export class TableReservationComponent implements OnInit{
             jQuery("#reservationTable #records").append("<td></td>");
           }else {
             if(cell.reservationName==null ) {
-              jQuery("#reservationTable #records").append('<td  bgcolor="#FF0000" style="{border: 0;}"></td>');
+              jQuery("#reservationTable #records").append('<td  class="bg-primary" style="{border: 0;}"></td>');
             } else{
-              jQuery("#reservationTable #records").append('<td  bgcolor="#FF0000" style="{border: 0;}">' + cell.reservationName + '</td>');
+              jQuery("#reservationTable #records").append('<td class="bg-primary" style="{border: 0;}"><b><center>' + cell.reservationName + '</center></b></td>');
             }
           }
 
