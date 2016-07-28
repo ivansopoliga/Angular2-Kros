@@ -13,9 +13,12 @@
         </div>
         <div class="navbar-collapse collapse sidebar-navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="#">Logout</a></li>
-            <li><a href="#">Administracia</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span></a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span></a>  <p> {{p[0].name}} </p> <p>{{p[0].email}}</p> </li>
+            <li><a [routerLink]="['/home/profile']">Upraviť profil</a></li>
+            <li><a [routerLink]="['/admin']">Administracia</a></li>
+            <li><a><button type="submit" id="logout_button"  class="logout_button" (click)="onSubmit()">Odhlásiť</button></a></li>
+
+
           </ul>
         </div><!--/.nav-collapse -->
       </div>

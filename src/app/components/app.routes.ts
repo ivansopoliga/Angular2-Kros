@@ -1,4 +1,4 @@
-﻿import {provideRouter, RouterConfig}  from '@angular/router';
+﻿﻿import {provideRouter, RouterConfig}  from '@angular/router';
 import {LoginComponent} from './login/login.component';
 import {HomeComponent} from './home/home.component';
 import {AdminComponent} from './admin/admin.component';

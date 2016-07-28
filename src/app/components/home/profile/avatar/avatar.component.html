@@ -1,0 +1,24 @@
+<div id="window" class="col-md-8 col-md-offset-2">
+
+  <h3>Zmena profilového obrázku</h3>
+
+  <form role="form"  *ngIf="true" #userForm="ngForm">
+
+    <!--AVATAR STARE-->
+    <div class="form-group">
+      <img src="http://static1.squarespace.com/static/52f174dde4b08a02b160afe4/t/52f7d3ade4b04cffe232f907/1391973294003/avatar.png" class="avatarImg">
+    </div>
+
+    <!--NACITANIE AVATAR NOVY-->
+    <div class="avatarLogo">
+      <label for="exampleInputFile">Načitať nový profilový obrázok:</label>
+      <input type="file" class="form-control-file" id="exampleInputFile">
+      <small class="text-muted"><br><br></small>
+    </div>
+
+
+    <div *ngIf="true">
+      <button type="submit" id="edit_button" class="btn btn-success  btn-block" [disabled]="!userForm.form.valid" (click)="editUser()">Zmeniť profilový obrázok</button>
+    </div>
+  </form>
+</div>
