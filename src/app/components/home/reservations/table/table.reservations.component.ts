@@ -29,7 +29,7 @@ export class TableReservationComponent implements OnInit {
   public reservationsData;
   public usersList:Array<User>;
 
-
+private pom=1;
   constructor(private userService:UserService, private officeService:OfficeService, private carService:CarService) {
   }
 
@@ -46,7 +46,12 @@ export class TableReservationComponent implements OnInit {
     );
   }
 
+
+
   fillTable() {
+    console.log(this.data);
+    console.log(this.tableData);
+
     var table;
     table = '<tr>';
     for (var i = 0; i < this.times.length; i++) {
@@ -69,20 +74,24 @@ export class TableReservationComponent implements OnInit {
 
      var reservationDate;
      var reservationLength;
+     var thisDocument=this;
 
 
-    //$(document).ready(function(event){
-    $("table td").mouseenter(function (event) {
+    $("#reservationTable td").mouseenter(function (event) {
       var isMouseDown = false;
       var col = $(this).parent().children().index($(this));
       var row = $(this).parent().parent().children().index($(this).parent());
+      var length=0;
+      var from,to;
 
       if (col > 0) {
         $('#reservationTable td:nth-child(' + ($(this).index() + 1) + ')')
           .mousedown(function () {
+            thisDocument.pom=1;
             isMouseDown = true;
             if (!$(this).hasClass("bg-primary")) {
               $(this).replaceWith('<td style="border: none; background-color:#5cb85c"">&nbsp;&nbsp;&nbsp;</td>');
+              from = row;
             }
             return false; //don't insert taxt in cell
 
@@ -91,20 +100,43 @@ export class TableReservationComponent implements OnInit {
             if (isMouseDown &&!$(this).hasClass("bg-primary")) {
               $(this).replaceWith('<td style="border: none; background-color:#5cb85c">&nbsp;&nbsp;&nbsp;</td>');
             }
-          });
+          })
+         .mouseup(function () {
+            to=row;
+          })
+        ;
 
         $(document)
           .mouseup(function () {
             isMouseDown = false;
-          });
+          //  if(isMouseUp){
+             thisDocument.makeReservation(from, to);
+            //}
+          })
+          ;
       }
     });
 
 
   }
 
-  reserve() {
+  makeReservation(from:number, to:number) {
+    alert(from+'->'+to);
+    if(this.pom>0) {
+      this.pom--;
+      this.carService.addReservation(1, '28.07.2016 8:30:00', 1, 90).subscribe(
+        data => {
+        },
+        error => {
+          alert(error);
+        },
+        () => {
+          this.updateWeek();
+        }
+      );
 
+      // this.updateWeek();
+    }
   }
 
 
