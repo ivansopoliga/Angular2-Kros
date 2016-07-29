@@ -7,8 +7,7 @@
 
 <div class="col-md-12">
 
-  <button (click)="makeReservation()">rezervuj</button>
-  <table cellpadding="0" cellspacing="0" id="reservationTable"  class="table table-responsive table-bordered"> <!-- class="table table-responsive table-hover"-->
+  <table cellpadding="0" cellspacing="0" id="reservationTable{{data.id}}"  class="table table-responsive table-bordered"> <!-- class="table table-responsive table-hover"-->
     <thead>
     <tr>
       <th></th>
@@ -19,7 +18,7 @@
     </thead>
 
 
-    <tbody id="records">
+    <tbody id="records{{data.id}}">
    <!-- <tr *ngFor="let time of times; let i = index" id="{{i}}">
       <td> {{ time.time }} </td>
 

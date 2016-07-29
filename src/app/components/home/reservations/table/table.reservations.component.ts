@@ -13,7 +13,7 @@ declare var $:any;
 @Component({
   selector: 'reservation-table',
   templateUrl: 'app/components/home/reservations/table/table.reservations.component.html',
-  styles: ['.glyphicon { margin-top: 10px; font-size: 16px; margin-bottom: 7px; cursor: pointer;} ']
+  styles: ['.glyphicon { margin-top: 10px; font-size: 16px; margin-bottom: 7px; cursor: pointer;}']
 
   // pipes: [CellPipe]
 })
@@ -29,7 +29,6 @@ export class TableReservationComponent implements OnInit {
   public reservationsData;
   public usersList:Array<User>;
 
-private pom=1;
   constructor(private userService:UserService, private officeService:OfficeService, private carService:CarService) {
   }
 
@@ -49,16 +48,13 @@ private pom=1;
 
 
   fillTable() {
-    console.log(this.data);
-    console.log(this.tableData);
-
-    var table;
-    table = '<tr>';
+    var table = '', fromRow, fromCol, length = 0, isMouseDown = false, thisDocument=this;
     for (var i = 0; i < this.times.length; i++) {
+      table += '<tr>';
       table += '<td>' + this.times[i].time + '</td>';
       for (let cell of this.tableData[this.times[i].time]) {
         if (cell.long == null) {
-          table += '<td>&nbsp;&nbsp;&nbsp;</td>';
+          table += '<td class="empty">&nbsp;&nbsp;&nbsp;</td>';
         } else {
           if (cell.reservationName == null) {
             table += '<td  class="bg-primary" style="border: none">&nbsp;&nbsp;&nbsp;</td>';
@@ -68,62 +64,43 @@ private pom=1;
         }
       }
       table += '</tr>';
+
     }
-    $("#reservationTable #records").html(table);
+    $("#reservationTable"+this.data.id+" #records"+this.data.id).html(table);
 
-
-     var reservationDate;
-     var reservationLength;
-     var thisDocument=this;
-
-
-    $("#reservationTable td").mouseenter(function (event) {
-      var isMouseDown = false;
+    $("#reservationTable"+this.data.id+" td.empty").mouseenter(function (event) {
       var col = $(this).parent().children().index($(this));
       var row = $(this).parent().parent().children().index($(this).parent());
-      var length=0;
-      var from,to;
 
-      if (col > 0) {
-        $('#reservationTable td:nth-child(' + ($(this).index() + 1) + ')')
-          .mousedown(function () {
-            thisDocument.pom=1;
-            isMouseDown = true;
-            if (!$(this).hasClass("bg-primary")) {
-              $(this).replaceWith('<td style="border: none; background-color:#5cb85c"">&nbsp;&nbsp;&nbsp;</td>');
-              from = row;
-            }
-            return false; //don't insert taxt in cell
-
-          })
-          .mouseover(function () {
-            if (isMouseDown &&!$(this).hasClass("bg-primary")) {
-              $(this).replaceWith('<td style="border: none; background-color:#5cb85c">&nbsp;&nbsp;&nbsp;</td>');
-            }
-          })
-         .mouseup(function () {
-            to=row;
-          })
-        ;
-
-        $(document)
-          .mouseup(function () {
-            isMouseDown = false;
-          //  if(isMouseUp){
-             thisDocument.makeReservation(from, to);
-            //}
-          })
-          ;
-      }
+      $('#reservationTable'+thisDocument.data.id+' td:nth-child(' + ($(this).index() + 1) + ')')
+        .mousedown(function () {
+          isMouseDown = true;
+          $(this).css({"background-color": "#5cb85c", "border": "none"});
+          fromRow = row;
+          fromCol = col;
+          return false; //don't insert taxt in cell
+        })
+        .mouseover(function () {
+          if (isMouseDown) {
+            $(this).css({"background-color": "#5cb85c", "border": "none"});
+          }
+        })
+        .mouseup(function () {
+          length = row - fromRow + 1;
+        })
     });
 
-
+    $(document)
+      .mouseup(function () {
+        if(isMouseDown) {
+          thisDocument.makeReservation(fromRow, fromCol, length);
+          isMouseDown = false;
+        }
+      });
   }
 
-  makeReservation(from:number, to:number) {
-    alert(from+'->'+to);
-    if(this.pom>0) {
-      this.pom--;
+  makeReservation(fromRow:number, fromCol:number, length:number) {
+      console.log(fromRow + ' ' + fromCol + ' ' + length);
       this.carService.addReservation(1, '28.07.2016 8:30:00', 1, 90).subscribe(
         data => {
         },
@@ -136,7 +113,6 @@ private pom=1;
       );
 
       // this.updateWeek();
-    }
   }
 
 
