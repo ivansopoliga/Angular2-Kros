@@ -2,4 +2,4 @@
 
 <div class="alert alert-warning col-md-12" *ngIf="!data">Neboli nájdené žiadne {{ name }}.</div>
 
-<reservation-table *ngFor="let row of data" [data]="row" [reservationType]="reservationType"></reservation-table>
+<reservation-table *ngFor="let row of data" [data]="row" [reservationType]="reservationType" [times]="times"></reservation-table>

@@ -1,10 +1,9 @@
-import {Component, Input, OnInit, ElementRef, Inject, AfterViewInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import * as moment from 'moment';
 import {User} from '../../../../models/user.admin.model';
 import {UserService} from '../../../../services/user.service';
 import {OfficeService} from '../../../../services/office.service';
 import {CarService} from '../../../../services/car.service';
-import {CellPipe} from "./CellPipe";
 
 
 declare var $:any;
@@ -14,17 +13,15 @@ declare var $:any;
   selector: 'reservation-table',
   templateUrl: 'app/components/home/reservations/table/table.reservations.component.html',
   styles: ['.glyphicon { margin-top: 10px; font-size: 16px; margin-bottom: 7px; cursor: pointer;}']
-
-  // pipes: [CellPipe]
 })
 
 export class TableReservationComponent implements OnInit {
   @Input() data;
+  @Input() times;
   @Input() reservationType;
 
   public week:number = 0;
   public days;
-  public times = JSON.parse('[]');
   public tableData = new Array();
   public reservationsData;
   public usersList:Array<User>;
@@ -33,7 +30,6 @@ export class TableReservationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.updateTime();
     this.userService.getUsers().subscribe(
       data => {
         this.usersList = data.json()
@@ -45,10 +41,8 @@ export class TableReservationComponent implements OnInit {
     );
   }
 
-
-
   fillTable() {
-    var table = '', fromRow, fromCol, length = 0, isMouseDown = false, thisDocument=this;
+    var table = '', fromRow, fromCol, length = 0, isMouseDown = false, thisDocument = this, column = 0;
     for (var i = 0; i < this.times.length; i++) {
       table += '<tr>';
       table += '<td>' + this.times[i].time + '</td>';
@@ -57,64 +51,85 @@ export class TableReservationComponent implements OnInit {
           table += '<td class="empty">&nbsp;&nbsp;&nbsp;</td>';
         } else {
           if (cell.reservationName == null) {
-            table += '<td  class="bg-primary" style="border: none">&nbsp;&nbsp;&nbsp;</td>';
+            table += '<td  class="bg-primary full" style="border-top: none; border-bottom: none;">&nbsp;&nbsp;&nbsp;</td>';
           } else {
-            table += '<td class="bg-primary" style="border: none"><b><center>' + cell.reservationName + '</b><br>' + cell.userName + '</center></td>';
+            table += '<td class="bg-primary full text-center" style="border-bottom: none;"><strong>' + cell.reservationName + '</strong> <br> <small>' + cell.userName + '</small></td>';
           }
         }
       }
       table += '</tr>';
-
     }
-    $("#reservationTable"+this.data.id+" #records"+this.data.id).html(table);
+    $("#reservationTable"+this.data.id+" .records").html(table);
 
-    $("#reservationTable"+this.data.id+" td.empty").mouseenter(function (event) {
+    $("#reservationTable"+this.data.id+" td.empty").on("mouseenter", function (event) {
       var col = $(this).parent().children().index($(this));
       var row = $(this).parent().parent().children().index($(this).parent());
 
-      $('#reservationTable'+thisDocument.data.id+' td:nth-child(' + ($(this).index() + 1) + ')')
-        .mousedown(function () {
+      if(!isMouseDown)
+        column = $(this).index() + 1;
+
+      $('#reservationTable'+thisDocument.data.id+' td.empty:nth-child('+ column +')')
+        .on("mousedown", function (event) {
+          if(event.which != 1) return false; //does not work for other than left button
           isMouseDown = true;
           $(this).css({"background-color": "#5cb85c", "border": "none"});
           fromRow = row;
           fromCol = col;
           return false; //don't insert taxt in cell
         })
-        .mouseover(function () {
-          if (isMouseDown) {
+        .on("mouseover", function () {
+          if(isMouseDown && ($(this).index() + 1) == column) {
             $(this).css({"background-color": "#5cb85c", "border": "none"});
           }
         })
-        .mouseup(function () {
+        .on("mouseup", function () {
           length = row - fromRow + 1;
+          column = 0;
         })
     });
 
-    $(document)
-      .mouseup(function () {
-        if(isMouseDown) {
-          thisDocument.makeReservation(fromRow, fromCol, length);
-          isMouseDown = false;
-        }
-      });
+    $(document).on("mouseup", function () {
+      if(isMouseDown) {
+        thisDocument.makeReservation(fromRow, fromCol, length);
+        isMouseDown = false;
+      }
+    });
   }
 
   makeReservation(fromRow:number, fromCol:number, length:number) {
-      console.log(fromRow + ' ' + fromCol + ' ' + length);
-      this.carService.addReservation(1, '28.07.2016 8:30:00', 1, 90).subscribe(
-        data => {
-        },
-        error => {
-          alert(error);
-        },
-        () => {
-          this.updateWeek();
-        }
+    var date, hours = 7, minutes = 0;
+    if(fromRow % 2 != 0){
+      fromRow -= 1;
+      minutes = 30;
+    }
+    for(var i = 0; i < fromRow / 2; i++)
+      hours++;
+    date = moment().add(this.week, 'weeks').weekday(fromCol).hour(hours).minute(minutes).format("DD.MM.YYYY HH:mm");
+    //checks, if selected time is not already reserved
+    var time = moment().hour(hours).minute(minutes).format("HH:mm"), endTime = moment(time, 'HH:mm').add(length*30, 'minutes').format("HH:mm");
+    while (time < endTime) {
+      if(this.tableData[time] && this.tableData[time][fromCol - 1]){
+        alert('Vaša rezervácia zasahuje do inej rezervácie. Zvoľte svoju rezerváciu inak.');
+        this.fillTable();
+        return false;
+      }
+      time = moment(time, 'HH:mm').add(30, 'minutes').format('HH:mm');
+    }
+    //saves the data
+    if (this.reservationType == "offices"){
+      this.officeService.addReservation(this.data.id, 1, 'Rezervácia', date, length*30).subscribe(
+        data => { },
+        error => { alert(error); },
+        () => { this.updateWeek(); }
       );
-
-      // this.updateWeek();
+    } else {
+      this.carService.addReservation(this.data.id, 1, 'Rezervácia', date, length*30).subscribe(
+        data => { },
+        error => { alert(error); },
+        () => { this.updateWeek(); }
+      );
+    }
   }
-
 
   moveFor() {
     this.week += 1;
@@ -137,17 +152,8 @@ export class TableReservationComponent implements OnInit {
     else this.updateDataCars();
   }
 
-  updateTime() {
-    for (var i = 7; i < 18; i++) {
-      for (var j = 0; j < 2; j++) {
-        var time = moment().hour(i).minute(j * 30).format('HH:mm');
-        this.times.push({'time': time});
-      }
-    }
-  }
-
   updateDataOffices() {
-    this.officeService.getOfficeReservations(this.data.id, moment().add(this.week, 'weeks').weekday(1).format("DD.MM.YYYY"), moment().add(this.week, 'weeks').weekday(5).format("DD.MM.YYYY")).subscribe(
+    this.officeService.getOfficeReservations(this.data.id, moment().add(this.week, 'weeks').weekday(1).format("DD.MM.YYYY"), moment().add(this.week, 'weeks').weekday(6).format("DD.MM.YYYY")).subscribe(
       data => {
         this.reservationsData = data.json()
       },
@@ -159,7 +165,7 @@ export class TableReservationComponent implements OnInit {
   }
 
   updateDataCars() {
-    this.carService.getCarReservations(this.data.id, moment().add(this.week, 'weeks').weekday(1).format("DD.MM.YYYY"), moment().add(this.week, 'weeks').weekday(5).format("DD.MM.YYYY")).subscribe(
+    this.carService.getCarReservations(this.data.id, moment().add(this.week, 'weeks').weekday(1).format("DD.MM.YYYY"), moment().add(this.week, 'weeks').weekday(6).format("DD.MM.YYYY")).subscribe(
       data => {
         this.reservationsData = data.json()
       },

@@ -34,6 +34,10 @@ export class UserService {
       return false;}
   }
 
+  public getLoggedUserId(){
+    return this.http.get('http://localhost:50909/api/users/id');
+  }
+
   public getUsers() {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');

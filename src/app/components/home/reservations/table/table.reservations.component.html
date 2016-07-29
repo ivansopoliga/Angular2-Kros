@@ -11,14 +11,14 @@
     <thead>
     <tr>
       <th></th>
-      <th *ngFor="let day of days">
+      <th *ngFor="let day of days" class="text-center">
         {{ day }}
       </th>
     </tr>
     </thead>
 
 
-    <tbody id="records{{data.id}}">
+    <tbody class="records">
    <!-- <tr *ngFor="let time of times; let i = index" id="{{i}}">
       <td> {{ time.time }} </td>
 

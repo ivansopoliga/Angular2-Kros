@@ -48,10 +48,10 @@ export class CarService {
     return this.http.delete('http://localhost:50909/api/cars/'+id);
   }
 
-  public addReservation(CarId: number, date:string, UserId:number, length:number){
+  public addReservation(carId: number, userId:number, name:string, date:string, length:number){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:50909/api/reservations/cars/', JSON.stringify({CarId, date, UserId, length}), {headers});
+    return this.http.post('http://localhost:50909/api/reservations/cars/', JSON.stringify({carId, userId, name, date, length}), {headers});
   }
 
 

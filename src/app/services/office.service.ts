@@ -51,7 +51,11 @@ export class OfficeService {
     return this.http.get('http://localhost:50909/api/equipment/', {headers});
   }
 
-
+  public addReservation(roomId: number, userId:number, name:string, date:string, length:number){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:50909/api/reservations/rooms/', JSON.stringify({roomId, userId, name, date, length}), {headers});
+  }
 
 
 
